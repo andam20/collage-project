@@ -13,14 +13,6 @@ return new class extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("company_profile_id");
-            $table->string('category');
-            $table->date('date');
-            $table->string('description');
-            $table->double('amount');
-            $table->enum("acceptance",["accepted","rejected","pending"])->default('pending');
-            $table->enum("paid_back",["paid","not_paid"])->default('paid');
-
             $table->timestamps();
         });
     }
