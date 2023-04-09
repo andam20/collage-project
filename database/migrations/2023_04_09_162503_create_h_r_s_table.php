@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('h_r_s', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->date('dob');
+            $table->date('start_date');
+            $table->enum("gender",["male","female"])->default('male');
+            $table->string('email')->unique();
+            $table->string('phone_no')->unique();
+            $table->double('salary');
+            $table->string('address');
+            $table->string('password');
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

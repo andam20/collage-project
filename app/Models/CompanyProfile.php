@@ -13,15 +13,15 @@ class CompanyProfile extends Model implements HasMedia
 
     use HasFactory, InteractsWithMedia;
     protected $guarded = [];
-    public function work()
-    {
-        return $this->hasMany(WorkType::class, 'company_profile_id');
-    }
+    // public function work()
+    // {
+    //     return $this->hasMany(WorkType::class, 'company_profile_id');
+    // }
 
-    public function expense()
-    {
-        return $this->hasMany(Expense::class, 'company_profile_id');
-    }
+    // public function expense()
+    // {
+    //     return $this->hasMany(Expense::class, 'company_profile_id');
+    // }
 
     // public function registerMediaConversions(Media $media = null): void
     // {

@@ -46,7 +46,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource("company-profile", CompanyProfileController::class);
+
+
 Route::resource("work-type", WorkTypeController::class)->except('show');
 Route::resource("expense", ExpenseController::class);
 
@@ -61,6 +62,18 @@ Route::get('/my-chart', [CompanyProfileController::class, 'chartData'])->name('c
 //     @dd($logo);
 //     $view->with('logo', $logo);
 // });
+
+
+
+
+
+
+
+Route::resource("company-profile", CompanyProfileController::class)->name('company-profile');
+
+
+
+
 
 
 require __DIR__ . '/auth.php';

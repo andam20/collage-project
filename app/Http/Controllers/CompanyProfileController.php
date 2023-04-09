@@ -28,7 +28,7 @@ class CompanyProfileController extends Controller
                     $td .= '<div class="d-flex">';
                     $td .= '<a href="' . route('company-profile.show', $row->id) . '" type="button" class="btn btn-sm btn-info waves-effect waves-light me-1">' . 'show' . '</a>';
                     $td .= '<a href="' . route('company-profile.edit', $row->id) . '" type="button" class="btn btn-sm btn-success waves-effect waves-light me-1">' . 'edit' . '</a>';
-                    $td .= '<a href="' . route('company-profile.destroy',$row->id) .  '" type="button" class="btn btn-sm btn-danger waves-effect waves-light me-1">' . 'delete' . '</a>';
+                    $td .= '<a href="' . route('company-profile.destroy', $row->id) . '" type="button" class="btn btn-sm btn-danger waves-effect waves-light me-1">' . 'delete' . '</a>';
                     $td .= "</div>";
                     $td .= "</td>";
                     return $td;
@@ -38,12 +38,15 @@ class CompanyProfileController extends Controller
                 })
                 ->make(true);
         }
-        return view('make-profile.index');
+        return view('company-profile.index');
     }
 
     public function create()
     {
-        return view('make-profile.create', ['companyProfile' => CompanyProfile::all(),'workTypes' => WorkType::all()]);
+        return view('company-profile.create', [
+            'companyProfile' => CompanyProfile::all()
+            // ,'workTypes' => WorkType::all()
+        ]);
     }
 
 
@@ -51,16 +54,12 @@ class CompanyProfileController extends Controller
     {
         $post = new CompanyProfile;
         $post->name = $request->input('name');
-        $post->desc = $request->input('desc');
-        $post->password = $request->input('password');
-        $post->dob = $request->input('dob');
-        $post->work_type = $request->input('work_type');
+        $post->start_date = $request->input('start_date');
+        $post->slogan = $request->input('slogan');
         $post->phone_no = $request->input('phone_no');
-        $post->salary = $request->input('salary');
         $post->email = $request->input('email');
         $post->address = $request->input('address');
-        $post->start_date = $request->input('start_date');
-        $post->gender = $request->input('gender');
+        $post->password = $request->input('password');
         $post->save();
 
         if ($request->hasFile('image')) {
@@ -82,7 +81,7 @@ class CompanyProfileController extends Controller
         $otherDateObject = DB::table('company_profiles')->where('id', $id)->value('start_date');
         $otherDateAsString = Carbon::parse($otherDateObject)->format('Y-m-d');
         $daysDifference = $now->diffForHumans($otherDateAsString);
-        return view('make-profile.show', compact('companies', 'imageUrl', 'daysDifference','id'));
+        return view('company-profile.show', compact('companies', 'imageUrl', 'daysDifference', 'id'));
     }
 
 
@@ -114,7 +113,7 @@ class CompanyProfileController extends Controller
 
     public function edit(CompanyProfile $companyProfile)
     {
-        return view('make-profile.edit',compact('companyProfile'));
+        return view('company-profile.edit', compact('companyProfile'));
     }
 
     public function update(CompanyProfileRequest $request, CompanyProfile $companyProfile)
@@ -152,12 +151,12 @@ class CompanyProfileController extends Controller
             ]
         ];
 
-        $workType=WorkType::get();
+        $workType = WorkType::get();
         $numOfUser = User::get()->count();
-        $male = CompanyProfile::get()->where('gender','male')->count();
-        $female = CompanyProfile::get()->where('gender','female')->count();
+        $male = CompanyProfile::get()->where('gender', 'male')->count();
+        $female = CompanyProfile::get()->where('gender', 'female')->count();
 
-        return view('make-profile.chart', compact('data', 'numOfUser','male','female','workType'));
+        return view('make-profile.chart', compact('data', 'numOfUser', 'male', 'female', 'workType'));
     }
 
 

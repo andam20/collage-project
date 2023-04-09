@@ -23,15 +23,12 @@ class CompanyProfileRequest extends FormRequest
     {
         return [
             "name" => ["required", "string"],
-            "password" => ["required"],
-            "desc" => ["string", "required"],
-            "dob" => [ "required"],
-            "start_date" => [ "required"],
+            "start_date" => [ "required","date"],
+            "slogan" => [ "required"],
             "phone_no" => ["string", "required"],
-            "work_type" => ["string", "required"],
-            "salary" => ["string", "required"],
-            "gender" => ["string", "required"],
             "email" => ["string", "required"],
+            "address" => ["string", "required"],
+            "password" => ["required"],
             "image.*" => ['sometimes', 'mimes:jpg,png,jpeg,gif,svg'],
 
         ];

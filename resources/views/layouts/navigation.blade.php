@@ -19,10 +19,10 @@
 
                 <div class="hidden text-decoration-none space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('company-profile.index')" :active="request()->routeIs('company-profile.index')">
-                        {{ __('Employees') }}
+                        {{ __('Company') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden text-decoration-none space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                {{-- <div class="hidden text-decoration-none space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('work-type.index')" :active="request()->routeIs('work-type.index')">
                         {{ __('WorkTypes') }}
                     </x-nav-link>
@@ -36,7 +36,7 @@
                     <x-nav-link :href="route('charts')" :active="request()->routeIs('charts')">
                         {{ __('Charts') }}
                     </x-nav-link>
-                </div>
+                </div> --}}
             </div>
 
             <!-- Settings Dropdown -->
