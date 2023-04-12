@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountantController;
 use App\Models\User;
 use App\Mail\HelloMail;
 use App\Models\CompanyProfile;
@@ -80,6 +81,8 @@ Route::resource("company-profile", CompanyProfileController::class)->name('*', '
 Route::post('login-company', [AuthController::class,'login'])->name('login-company');
 
 Route::resource("work-type", WorkTypeController::class)->except('show');
+Route::resource("expense", ExpenseController::class);
+Route::resource("accountant", AccountantController::class);
 
 
 

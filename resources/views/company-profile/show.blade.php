@@ -19,11 +19,11 @@
         }
     </style>
 
-<x-slot name="header">
-    <h2 class="text-decoration-none text-xl text-gray-800 leading-tight">
-        {{ __('Show Employee') }}
-    </h2>
-</x-slot>
+    <x-slot name="header">
+        <h2 class="text-decoration-none text-xl text-gray-800 leading-tight">
+            {{ __('Show Employee') }}
+        </h2>
+    </x-slot>
 
     <div class="container">
         <div class="row d-flex justify-content-center align-items-center mt-5">
@@ -108,13 +108,34 @@
                                     </div>
 
                                     <div class="col-6">
-                                        <h6>work type</h6>
-                                        <p class="text-muted">{{$item->work_type}}</p>
+                                        <h6>Expenses:</h6>
+                                        <p class="text-muted">
+                                            @forelse ($item->expense as $expense)
+                                                <h6>
+                                                    {{ $loop->iteration }}{{ '- ' }}
+                                                    {{ $expense->title }}</h6>
+                                            @empty
+                                                {{ 'no expense' }}
+                                            @endforelse
+                                        </p>
                                     </div>
+
+                                    <div class="col-6">
+                                        <h6>work type</h6>
+                                        <p class="text-muted">{{ $item->work_type }}</p>
+                                    </div>
+                                    
+
+                                    <div class="col-6">
+                                        <h6></h6>
+                                        <p class="text-muted"></p>
+                                    </div>
+                                    
+
 
 
                                     <div class="col-6">
-                                        <a class="" href="{{ route('company-profile.edit',$id) }}"><button
+                                        <a class="" href="{{ route('company-profile.edit', $id) }}"><button
                                                 class="btn btn-success">
                                                 Edit Employees
                                             </button></a>

@@ -28,6 +28,10 @@ class CompanyProfile extends Model implements HasMedia
     {
         return $this->belongsTo(User::class);
     }
+    public function expense()
+    {
+        return $this->hasMany(Expense::class);
+    }
 
 
     // public function work()

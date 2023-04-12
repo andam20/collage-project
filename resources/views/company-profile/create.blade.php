@@ -6,6 +6,10 @@
     </x-slot>
 
 
+    <div class="col-lg-12"  align="end">
+    <button style="margin-right: 22px;margin-top: 22px;" type="button" class="btn btn-rounded btn-success waves-effect waves-light"
+    data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever=""> Add Work Type</button>
+</div>
     <div class="row">
         <div class="col-lg-3"></div>
         <div class="col-xl-6">

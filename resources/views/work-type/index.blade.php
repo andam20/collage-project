@@ -39,7 +39,7 @@
                         <thead class="table-light">
                             <tr>
                                 <th>#</th>
-                                <th> category</th>
+                                <th> Name</th>
                                 <th> Created At</th>
                                 <th> Actions</th>
                             </tr>
@@ -52,14 +52,14 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">add category</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">add Name</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
                                         @csrf
                                         <div class="mb-3">
-                                            <label for="name" class="col-form-label">category:</label>
+                                            <label for="name" class="col-form-label">Name:</label>
                                             <input type="text" class="form-control" id="name" name="name">
                                         </div>
                                     </div>
@@ -79,7 +79,7 @@
                             <div class="modal-dialog">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="exampleModalLabel">edit category</h5>
+                                        <h5 class="modal-title" id="exampleModalLabel">edit Name</h5>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>
@@ -87,7 +87,7 @@
                                         @csrf
                                         @method('PUT')
                                         <div class="mb-3">
-                                            <label for="name" class="col-form-label">category:</label>
+                                            <label for="name" class="col-form-label">Name:</label>
                                             <input type="text" class="form-control" id="name" name="name">
                                         </div>
                                     </div>

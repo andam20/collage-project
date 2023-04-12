@@ -19,24 +19,23 @@
 
     <x-slot name="header">
         <h2 class="text-decoration-none text-xl text-gray-800 leading-tight">
-            {{ __('Expense') }}
+            {{ __('Expense List') }}
         </h2>
     </x-slot>
+
 
     <div class="row m-2 float-center">
         <div class="col-sm-12 col-md-6">
             <div class="dt-buttons btn-group flex-wrap">
-
-                <a href="{{ route('expense.create') }}"><button class="btn btn-primary buttons-csv buttons-html5"
-                        tabindex="0" aria-controls="example1" type="button"><span>Create New
-                            work type</span></button></a>
+                <a href="{{ route('expense.create') }}"><button
+                        class="btn btn-primary buttons-csv buttons-html5" tabindex="0" aria-controls="example1"
+                        type="button"><span>Create New
+                            expense</span></button></a>
                 <p class="m-1"></p>
-                <a href="{{ route('workTypeExcel') }}"> <button
-                        class="btn btn-secondary buttons-excel buttons-html5" tabindex="0" aria-controls="example1"
-                        type="button"><span>Export</span></button></a>
-            </div>
+             </div>
         </div>
     </div>
+
 
     <div class="card m-3">
         <div class="p-2  rounded " style="padding-bottom: 112px">
@@ -44,7 +43,12 @@
                 <thead class="thead-dark rounded">
                     <tr class=" rounded">
                         <th class="bg-secondary">id</th>
+                        <th class="bg-secondary">title</th>
+                        <th class="bg-secondary">employee</th>
                         <th class="bg-secondary">category</th>
+                        <th class="bg-secondary">place</th>
+                        <th class="bg-secondary">amount</th>
+                        <th class="bg-secondary">description</th>
                         <th class="bg-secondary">Manage</th>
                     </tr>
                 </thead>
@@ -54,8 +58,20 @@
 </x-app-layout>
 
 
+
 <script type="text/javascript">
     $(document).ready(function() {
+        function dataChanged() {
+            table.draw();
+        }
+        getParameter = (key) => {
+
+address = window.location.search
+
+parameterList = new URLSearchParams(address)
+
+return parameterList.get(key)
+}
         var table = $('#MyTable').DataTable({
             processing: true,
             serverSide: true,
@@ -68,17 +84,32 @@
                 url: "{{ route('expense.index') }}",
                 method: "GET",
                 data: function(d) {
-                    // d.startDate = $("#start").val();
-                    // d.endDate = $("#end").val();
+                    d.startDate = $("#start").val();
+                    d.endDate = $("#end").val();
                     // d.modelName = $('#modelName').find(":selected").val();
-                    // d.active = $('#active').find(":selected").val();
+                    d.gender = $('#gedner').find(":selected").val();
                 }
             },
             columns: [{
                     data: 'id',
                 },
                 {
+                    data: 'title',
+                },
+                {
+                    data: 'company_profile.name',
+                },
+                {
                     data: 'category',
+                },
+                {
+                    data: 'place',
+                },
+                {
+                    data: 'amount',
+                },
+                {
+                    data: 'description',
                 },
                 {
                     data: 'action',
@@ -87,5 +118,24 @@
                 }
             ],
         });
+        $("#datepicker").datepicker();
+
     });
 </script>
+
+@section('script') 
+    <!-- Required datatable js -->
+   <script src="{{ URL::asset('/assets/libs/datatables/datatables.min.js') }}"></script>
+    <script src="{{ URL::asset('assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
+
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+        function dataChanged() {
+            table.draw();
+        }
+    });
+
+    </script>
+@endsection

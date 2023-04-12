@@ -99,7 +99,7 @@ public function show(Request $request, $id)
     {
         // $cate=WorkType::with('company_profile')->get();
 
-        $companies = CompanyProfile::get()->where('id', $id);
+        $companies = CompanyProfile::with('expense')->get()->where('id', $id);
         // dd($companies);
         $companyProfile = CompanyProfile::find($id); // get a specific CompanyProfile model instance
         $imageUrl = asset($companyProfile->getFirstMedia('images')->getUrl());
