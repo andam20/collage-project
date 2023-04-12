@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
 use App\Models\CompanyProfile;
+use App\Models\Expense;
 use Illuminate\Http\Request;
 
 class APICompanyController extends Controller
@@ -14,7 +15,7 @@ class APICompanyController extends Controller
      */
     public function index(Request $request)
     {
-        return CompanyProfile::all();
+        return Expense::all();
     }
 
     public function count(Request $request)

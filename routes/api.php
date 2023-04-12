@@ -33,11 +33,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 });
 
-
-Route::resource('companies', APICompanyController::class);
+Route::resource('expense', APICompanyController::class);
 Route::get('company-number', [APICompanyController::class,'count']);
-
-
 
 //public route
 Route::post("login", [AuthController::class, 'login']);

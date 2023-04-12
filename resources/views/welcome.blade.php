@@ -89,6 +89,9 @@
                                     @endauth
                                 @endif
                             </div>
+                            <div class="m-2">
+                                <a class="main-btn" href="{{ route('acc') }}">Login As Accountant</a>
+                            </div>
                             {{-- <div class="navbar-btn m-3 d-none d-sm-inline-block">
                                 <a class="main-btn" href="{{ route('login-company') }}">Company</a>
                             </div> --}}
