@@ -23,12 +23,11 @@ class ExpenseRequest extends FormRequest
     {
         return [
             "category" => ["required", "string"],
-            "date" => ["required"],
             "description" => ["required", "string"],
             "amount" => ["required"],
-            "acceptance" => ["required"],
-            "paid_back" => ["required"],
-        
+            "title" => ["required"],
+            "place" => ["required"],
+            "company_profile_id" => ["required", "exists:company_profiles,id"],
         ];
     }
 }

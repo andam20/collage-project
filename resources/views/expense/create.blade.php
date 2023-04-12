@@ -20,30 +20,24 @@
                             </ul>
                         </div>
                     @endif
-                    <form class="needs-validation" action="{{ route('expense.store') }}" method="POST">
+                    <form class="needs-validation" action="{{ route('expense.store') }}" method="POST"
+                        enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <div class="col-12">
+
+
                                 <div class="row mb-4">
-                                    <label for="category" class="col-sm-3 col-form-label">category</label>
+                                    <label for="title" class="col-sm-3 col-form-label">title</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="category" name="category"
-                                            value="{{ old('category') }}" required>
+                                        <input type="text" class="form-control" id="title" name="title"
+                                            value="{{ old('title') }}" required>
                                         <div class="valid-feedback">
                                             @lang('validation.good')
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mb-4">
-                                    <label for="description" class="col-sm-3 col-form-label">description</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="description" name="description"
-                                            value="{{ old('description') }}" required>
-                                        <div class="valid-feedback">
-                                            @lang('validation.good')
-                                        </div>
-                                    </div>
-                                </div>
+
                                 <div class="row mb-4">
                                     <label for="amount" class="col-sm-3 col-form-label">amount</label>
                                     <div class="col-sm-9">
@@ -54,24 +48,25 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row mb-4">
-                                    <label for="date" class="col-sm-3 col-form-label">date</label>
-                                    <div class="col-sm-9">
-                                        <input type="date" class="form-control" id="date" name="date"
-                                            value="{{ old('date') }}" required>
-                                        <div class="valid-feedback">
-                                            @lang('validation.good')
-                                        </div>
-                                    </div>
+
+                                <div class="mb-3">
+                                    <label for="company_profile_id"
+                                        class="col-form-label">which Employee :</label>
+                                    <select class="form-control select2" id="company_profile_id"
+                                        name="company_profile_id" required>
+                                        @foreach ($data as $item)
+                                            <option value="{{ $item->id }}"
+                                                {{ $item->id == old('company_profile') ? 'selected' : '' }}>
+                                                {{ $item->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
+
                                 <div class="row mb-4">
-                                    <label class="col-sm-3 col-form-label" for="acceptance">acceptance</label>
+                                    <label for="category" class="col-sm-3 col-form-label">category</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control select2" id="acceptance" name="acceptance" required>
-                                            <option value="accepted" @selected(old('acceptance') == 'accepted')>accepted</option>
-                                            <option value="rejected" @selected(old('acceptance') == 'rejected')>rejected</option>
-                                            <option value="pending" @selected(old('acceptance') == 'pending')>pending</option>
-                                        </select>
+                                        <input type="text" class="form-control" id="category" name="category"
+                                            value="{{ old('category') }}" required>
                                         <div class="valid-feedback">
                                             @lang('validation.good')
                                         </div>
@@ -79,31 +74,26 @@
                                 </div>
 
                                 <div class="row mb-4">
-                                    <label class="col-sm-3 col-form-label" for="paid_back">paid back</label>
+                                    <label for="place" class="col-sm-3 col-form-label">place</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control select2" id="paid_back" name="paid_back" required>
-                                            <option value="paid" @selected(old('paid_back') == 'accepted')>paid back</option>
-                                            <option value="not_paid" @selected(old('paid_back') == 'rejected')>not paid back</option>
-                                        </select>
+                                        <input type="text" class="form-control" id="place" name="place"
+                                            value="{{ old('place') }}" required>
                                         <div class="valid-feedback">
                                             @lang('validation.good')
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row mb-4">
-                                    <label class="col-sm-3 col-form-label" for="employee_name">employee name</label>
+                                    <label for="description" class="col-sm-3 col-form-label">description</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control select2" id="employee_name" name="employee_name"
-                                            required>
-                                            @foreach ($employee as $emp)
-                                                <option value="{{ $emp->id }}">{{ $emp->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <input type="text" class="form-control" id="description" name="description"
+                                            value="{{ old('description') }}" required>
                                         <div class="valid-feedback">
                                             @lang('validation.good')
                                         </div>
                                     </div>
-                                </div>
+                                </div>  
                                 <div class="row justify-content-end">
                                     <div class="col-sm-9">
                                         <div>

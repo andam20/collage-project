@@ -3,12 +3,19 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
-                
+
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     {{-- <img src="{{ $logo->getFirstMediaUrl('images') }}" height="100px" width="100px"
                         alt="{{ URL::asset('/assets/images/place_holder.jpg') }}"> --}}
                 </div>
+
+                @empty($logo)
+                    <img src="{{ asset('/assets/images/logo-light.png') }}" alt="" height="19">
+                @else
+                    <img style="height: 50px;width: 100px" src="{{ getFile($logo, 'images') }}"
+                        alt="Generic placeholder image" class="img-fluid col-lg-6 rounded mt-2">
+                @endempty
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
@@ -19,24 +26,24 @@
 
                 <div class="hidden text-decoration-none space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('company-profile.index')" :active="request()->routeIs('company-profile.index')">
-                        {{ __('Employees') }}
+                        {{ __('Employee') }}
                     </x-nav-link>
                 </div>
-                <div class="hidden text-decoration-none space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                {{-- <div class="hidden text-decoration-none space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('work-type.index')" :active="request()->routeIs('work-type.index')">
-                        {{ __('WorkTypes') }}
+                        {{ __('Work Type') }}
                     </x-nav-link>
-                </div>
+                </div> --}}
                 <div class="hidden text-decoration-none space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('expense.index')" :active="request()->routeIs('expense.index')">
                         {{ __('Expense') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden text-decoration-none space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('charts')" :active="request()->routeIs('charts')">
-                        {{ __('Charts') }}
+                    <x-nav-link :href="route('accountant.index')" :active="request()->routeIs('accountant.index')">
+                        {{ __('Accountant') }}
                     </x-nav-link>
-                </div>
+                </div> 
             </div>
 
             <!-- Settings Dropdown -->

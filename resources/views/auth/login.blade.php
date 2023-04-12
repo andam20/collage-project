@@ -25,7 +25,7 @@
         <div class="row row-cols-lg-2">
             <div class="col">
                 <div class="container formContainer">
-                    <h1 style="color: #F14836;">Welcome back</h1>
+                    <h1 style="color: #F14836;">Welcome Back</h1>
                     <p class="welcome">welcome back! please enter you'r details</p>
                     <form method="POST" id="theForm" class="col col-xl-7 col-lg-8 col-md-11 col-sm-8"
                         action="{{ route('login') }}">

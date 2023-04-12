@@ -12,7 +12,9 @@ use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable  implements HasMedia
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+class User extends Authenticatable  implements HasMedia,MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable,InteractsWithMedia;
 
@@ -42,4 +44,14 @@ class User extends Authenticatable  implements HasMedia
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function company_profiles()
+    {
+        return $this->hasMany(CompanyProfile::class);
+    }
+    public function accountant()
+    {
+        return $this->hasMany(Accountant::class);
+    }
 }

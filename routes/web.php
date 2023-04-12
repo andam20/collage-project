@@ -1,12 +1,18 @@
 <?php
 
+use App\Http\Controllers\AccountantController;
 use App\Models\User;
+use App\Mail\HelloMail;
 use App\Models\CompanyProfile;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\CompanyProfileController;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WorkTypeController;
+use App\Http\Controllers\CompanyProfileController;
+use App\Models\Employee;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,8 +52,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource("company-profile", CompanyProfileController::class);
-Route::resource("work-type", WorkTypeController::class)->except('show');
+
+
 Route::resource("expense", ExpenseController::class);
 
 Route::get('/my-chart', [CompanyProfileController::class, 'chartData'])->name('charts');
@@ -61,6 +67,47 @@ Route::get('/my-chart', [CompanyProfileController::class, 'chartData'])->name('c
 //     @dd($logo);
 //     $view->with('logo', $logo);
 // });
+
+
+
+
+Route::resource("company-profile", CompanyProfileController::class)->name('*', 'company-profile');
+
+// Route::get("company-profile", function(){
+//     Mail::to('andam.00012789@gmail.com')->send(new HelloMail());
+
+// });
+
+Route::post('login-company', [AuthController::class,'login'])->name('login-company');
+
+Route::resource("work-type", WorkTypeController::class)->except('show');
+Route::resource("expense", ExpenseController::class);
+Route::resource("accountant", AccountantController::class);
+
+
+
+
+
+View::composer(['*'],function($view){
+    $logo=User::find(Auth::id());
+    $view->with('logo',$logo);
+  });
+
+
+  View::composer(['*'],function($view){
+    $employeeCount=CompanyProfile::get()->count();
+    $view->with('employeeCount',$employeeCount);
+  });
+
+  View::composer(['*'],function($view){
+    $userCount=User::get()->count();
+    $view->with('userCount',$userCount);
+  });
+
+  
+
+
+
 
 
 require __DIR__ . '/auth.php';

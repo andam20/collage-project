@@ -2,25 +2,47 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\CompanyProfileExport;
-use App\Http\Requests\CompanyProfileRequest;
-use App\Models\CompanyProfile;
+use DateTime;
+use DataTables;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\WorkType;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use DataTables;
-use DateTime;
+use App\Models\CompanyProfile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Exports\CompanyProfileExport;
 use Illuminate\Support\Facades\Schema;
+use App\Http\Requests\CompanyProfileRequest;
 
 class CompanyProfileController extends Controller
 {
     public function index(Request $request)
     {
 
+        $gender=CompanyProfile::select('gender')->get()->unique('gender');
+        $count=CompanyProfile::count();
+        $countMale=CompanyProfile::where('gender','male')->count();
+        $countFemale=CompanyProfile::where('gender','female')->count();
         if ($request->ajax()) {
-            $data = CompanyProfile::get();
+            $data = CompanyProfile::where('user_id',Auth::id())->get();
+
+            $start_date = (!empty($_GET["startDate"])) ? ($_GET["startDate"]) : ('');
+            $end_date = (!empty($_GET["endDate"])) ? ($_GET["endDate"]) : ('');
+            if ($start_date && $end_date) {
+                $start_date = date('Y-m-d', strtotime($start_date));
+                $end_date = date('Y-m-d', strtotime($end_date));
+                $data->whereBetween('start_date', [$start_date, $end_date]);
+            }
+
+            $find = $request->gender;
+            if (!empty($find)) {
+                $data->where('gender', $find);
+            }
+
+            if (!empty($request->modelName)) {
+                $data->where('model', $request->modelName);
+            }
 
             return Datatables::of($data)->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -28,7 +50,7 @@ class CompanyProfileController extends Controller
                     $td .= '<div class="d-flex">';
                     $td .= '<a href="' . route('company-profile.show', $row->id) . '" type="button" class="btn btn-sm btn-info waves-effect waves-light me-1">' . 'show' . '</a>';
                     $td .= '<a href="' . route('company-profile.edit', $row->id) . '" type="button" class="btn btn-sm btn-success waves-effect waves-light me-1">' . 'edit' . '</a>';
-                    $td .= '<a href="' . route('company-profile.destroy',$row->id) .  '" type="button" class="btn btn-sm btn-danger waves-effect waves-light me-1">' . 'delete' . '</a>';
+                    $td .= '<a href="' . route('company-profile.destroy', $row->id) . '" type="button" class="btn btn-sm btn-danger waves-effect waves-light me-1">' . 'delete' . '</a>';
                     $td .= "</div>";
                     $td .= "</td>";
                     return $td;
@@ -38,12 +60,16 @@ class CompanyProfileController extends Controller
                 })
                 ->make(true);
         }
-        return view('make-profile.index');
+        return view('company-profile.index',compact('count','countMale','countFemale','gender'));
     }
 
     public function create()
     {
-        return view('make-profile.create', ['companyProfile' => CompanyProfile::all(),'workTypes' => WorkType::all()]);
+        return view('company-profile.create', [
+            'companyProfile' => CompanyProfile::all()
+            ,'work_types' => WorkType::all(),
+            'users'=> User::find(Auth::id())
+        ]);
     }
 
 
@@ -51,16 +77,14 @@ class CompanyProfileController extends Controller
     {
         $post = new CompanyProfile;
         $post->name = $request->input('name');
-        $post->desc = $request->input('desc');
-        $post->password = $request->input('password');
-        $post->dob = $request->input('dob');
+        $post->user_id = $request->input('user');
         $post->work_type = $request->input('work_type');
-        $post->phone_no = $request->input('phone_no');
-        $post->salary = $request->input('salary');
-        $post->email = $request->input('email');
-        $post->address = $request->input('address');
         $post->start_date = $request->input('start_date');
         $post->gender = $request->input('gender');
+        $post->phone_no = $request->input('phone_no','min:7');
+        $post->email = $request->input('email');
+        $post->address = $request->input('address');
+        $post->password = $request->input('password','min:8',);
         $post->save();
 
         if ($request->hasFile('image')) {
@@ -71,9 +95,12 @@ class CompanyProfileController extends Controller
     }
 
 
-    public function show(Request $request, $id)
+public function show(Request $request, $id)
     {
-        $companies = CompanyProfile::get()->where('id', $id);
+        // $cate=WorkType::with('company_profile')->get();
+
+        $companies = CompanyProfile::with('expense')->get()->where('id', $id);
+        // dd($companies);
         $companyProfile = CompanyProfile::find($id); // get a specific CompanyProfile model instance
         $imageUrl = asset($companyProfile->getFirstMedia('images')->getUrl());
 
@@ -82,7 +109,7 @@ class CompanyProfileController extends Controller
         $otherDateObject = DB::table('company_profiles')->where('id', $id)->value('start_date');
         $otherDateAsString = Carbon::parse($otherDateObject)->format('Y-m-d');
         $daysDifference = $now->diffForHumans($otherDateAsString);
-        return view('make-profile.show', compact('companies', 'imageUrl', 'daysDifference','id'));
+        return view('company-profile.show', compact('companies', 'imageUrl', 'daysDifference', 'id'));
     }
 
 
@@ -114,7 +141,7 @@ class CompanyProfileController extends Controller
 
     public function edit(CompanyProfile $companyProfile)
     {
-        return view('make-profile.edit',compact('companyProfile'));
+        return view('company-profile.edit', compact('companyProfile'));
     }
 
     public function update(CompanyProfileRequest $request, CompanyProfile $companyProfile)
@@ -152,12 +179,12 @@ class CompanyProfileController extends Controller
             ]
         ];
 
-        $workType=WorkType::get();
+        $workType = WorkType::get();
         $numOfUser = User::get()->count();
-        $male = CompanyProfile::get()->where('gender','male')->count();
-        $female = CompanyProfile::get()->where('gender','female')->count();
+        $male = CompanyProfile::get()->where('gender', 'male')->count();
+        $female = CompanyProfile::get()->where('gender', 'female')->count();
 
-        return view('make-profile.chart', compact('data', 'numOfUser','male','female','workType'));
+        return view('make-profile.chart', compact('data', 'numOfUser', 'male', 'female', 'workType'));
     }
 
 

@@ -13,6 +13,7 @@ use App\Http\Requests\CompanyProfileRequest;
 use App\Http\Requests\ExpenseRequest;
 use App\Models\CompanyProfile;
 use App\Models\Expense;
+use Carbon\Carbon;
 
 class ExpenseController extends Controller
 {
@@ -20,14 +21,23 @@ class ExpenseController extends Controller
     {
 
         if ($request->ajax()) {
-            $data = Expense::get();
+            $data = Expense::with('company_profile')->get();
 
             return datatables::of($data)->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $td = '<td>';
                     $td .= '<div class="d-flex">';
-                    $td .= '<a href="' . route('expense.edit', $row->id) . '" type="button" class="btn btn-sm btn-success waves-effect waves-light me-1">' . 'edit Work Type' . '</a>';
-                    $td .= '<a href="javascript:void(0)" data-id="' . $row->id . '" data-url="' . route('expense.destroy', $row->id) . '"  class="btn btn-sm btn-danger delete-btn">' . 'delete Work Type' . '</a>';
+                    $td .= '<a href="' . route('expense.show', $row->id) . '" type="button" class="btn btn-sm btn-info waves-effect waves-light me-1">' . 'show' . '</a>';
+                    $td .= '<a href="' . route('expense.edit', $row->id) . '" type="button" class="btn btn-sm btn-success waves-effect waves-light me-1">' . 'edit Expense' . '</a>';
+                    $td .= '<a href="javascript:void(0)" data-id="' . $row->id . '" data-url="' . route('expense.destroy', $row->id) . '"  class="btn btn-sm btn-danger delete-btn">' . 'delete Expense' . '</a>';
+                    $td .= "</div>";
+                    $td .= "</td>";
+                    return $td;
+                })
+                ->editColumn('company_profile_id', function ($row) {
+                    $td = '<td>';
+                    $td .= '<div class="d-flex">';
+                    $td .= $row->company_profile;
                     $td .= "</div>";
                     $td .= "</td>";
                     return $td;
@@ -40,7 +50,7 @@ class ExpenseController extends Controller
     public function create()
     {
         // dd(CompanyProfile::get('name'));
-        return view('expense.create', ['expense' => Expense::all(),"employee" => CompanyProfile::select('id', 'name')->get()]);
+        return view('expense.create', ['expense' => Expense::all(),"data" => CompanyProfile::get()]);
     }
 
 
@@ -57,6 +67,20 @@ class ExpenseController extends Controller
     {
         $expense->delete();
         return redirect()->route('expense.index');
+    }
+
+    public function show(Request $request, $id)
+    {
+
+        $expenses = Expense::get()->where('id', $id);
+        // $imageUrl = asset($expenses->getFirstMedia('images')->getUrl());
+
+
+        $now = Carbon::now();
+        $otherDateObject = DB::table('expenses')->where('id', $id)->value('created_at');
+        $otherDateAsString = Carbon::parse($otherDateObject)->format('Y-m-d');
+        $daysDifference = $now->diffForHumans($otherDateAsString);
+        return view('expense.show', compact('expenses',  'daysDifference', 'id'));
     }
 
 
@@ -81,7 +105,9 @@ class ExpenseController extends Controller
 
     public function edit(Expense $expense)
     {
-        return view('expense.edit', compact('expense'));
+
+        $company =CompanyProfile::get();
+        return view('expense.edit', compact('expense','company'));
     }
 
     public function update(ExpenseRequest $request, Expense $expense)
