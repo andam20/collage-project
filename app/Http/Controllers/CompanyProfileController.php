@@ -19,8 +19,29 @@ class CompanyProfileController extends Controller
     public function index(Request $request)
     {
 
+        $gender=CompanyProfile::select('gender')->get()->unique('gender');
+        $count=CompanyProfile::count();
+        $countMale=CompanyProfile::where('gender','male')->count();
+        $countFemale=CompanyProfile::where('gender','female')->count();
         if ($request->ajax()) {
             $data = CompanyProfile::get();
+
+            $start_date = (!empty($_GET["startDate"])) ? ($_GET["startDate"]) : ('');
+            $end_date = (!empty($_GET["endDate"])) ? ($_GET["endDate"]) : ('');
+            if ($start_date && $end_date) {
+                $start_date = date('Y-m-d', strtotime($start_date));
+                $end_date = date('Y-m-d', strtotime($end_date));
+                $data->whereBetween('start_date', [$start_date, $end_date]);
+            }
+
+            $find = $request->gender;
+            if (!empty($find)) {
+                $data->where('gender', $find);
+            }
+
+            if (!empty($request->modelName)) {
+                $data->where('model', $request->modelName);
+            }
 
             return Datatables::of($data)->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -38,14 +59,14 @@ class CompanyProfileController extends Controller
                 })
                 ->make(true);
         }
-        return view('company-profile.index');
+        return view('company-profile.index',compact('count','countMale','countFemale','gender'));
     }
 
     public function create()
     {
         return view('company-profile.create', [
             'companyProfile' => CompanyProfile::all()
-            // ,'workTypes' => WorkType::all()
+            ,'workTypes' => WorkType::all()
         ]);
     }
 
@@ -54,12 +75,13 @@ class CompanyProfileController extends Controller
     {
         $post = new CompanyProfile;
         $post->name = $request->input('name');
+        // $post->work_type_id = $request->input('work_type');
         $post->start_date = $request->input('start_date');
-        $post->slogan = $request->input('slogan');
-        $post->phone_no = $request->input('phone_no');
+        $post->gender = $request->input('gender');
+        $post->phone_no = $request->input('phone_no','min:7');
         $post->email = $request->input('email');
         $post->address = $request->input('address');
-        $post->password = $request->input('password');
+        $post->password = $request->input('password','min:8',);
         $post->save();
 
         if ($request->hasFile('image')) {
@@ -70,9 +92,12 @@ class CompanyProfileController extends Controller
     }
 
 
-    public function show(Request $request, $id)
+public function show(Request $request, $id)
     {
+        // $cate=WorkType::with('company_profile')->get();
+
         $companies = CompanyProfile::get()->where('id', $id);
+        // dd($companies);
         $companyProfile = CompanyProfile::find($id); // get a specific CompanyProfile model instance
         $imageUrl = asset($companyProfile->getFirstMedia('images')->getUrl());
 

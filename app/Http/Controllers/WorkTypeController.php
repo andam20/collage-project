@@ -24,8 +24,8 @@ class WorkTypeController extends Controller
                 ->addColumn('action', function ($row) {
                     $td = '<td>';
                     $td .= '<div class="d-flex">';
-                    $td .= '<a href="' . route('work-type.edit', $row->id) . '" type="button" class="btn btn-sm btn-success waves-effect waves-light me-1">' . 'edit Work Type' . '</a>';
-                    $td .= '<a href="javascript:void(0)" data-id="' . $row->id . '" data-url="' . route('work-type.destroy', $row->id) . '"  class="btn btn-sm btn-danger delete-btn">' .'delete Work Type' . '</a>';
+                    $td .= '<a href="' . route('work-type.edit', $row->id) . '" type="button" class="btn btn-sm btn-success waves-effect waves-light me-1">' . 'edit Category' . '</a>';
+                    $td .= '<a href="javascript:void(0)" data-id="' . $row->id . '" data-url="' . route('work-type.destroy', $row->id) . '"  class="btn btn-sm btn-danger delete-btn">' .'delete Category' . '</a>';
                     $td .= "</div>";
                     $td .= "</td>";
                     return $td;

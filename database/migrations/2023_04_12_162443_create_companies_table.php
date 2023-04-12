@@ -15,7 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->date('start_date');
-            $table->string('slogan');
+            $table->enum("gender",["male","female"])->default('male');
+            // $table->foreignId('work_type_id')->nullable()->constrained();
+            // $table->string("work_type")->nullable()->constrained('users')->nullOnDelete();
+            // $table->foreignId('work_type_id')->constrained("company_profiles")->onUpdate("cascade")->onDelete("cascade");
             $table->double('phone_no')->unique();
             $table->string('email')->unique();
             $table->string('address');

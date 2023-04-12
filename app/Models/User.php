@@ -12,7 +12,9 @@ use Spatie\MediaLibrary\HasMedia;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class User extends Authenticatable  implements HasMedia
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+class User extends Authenticatable  implements HasMedia,MustVerifyEmail
 {
     use HasApiTokens, HasFactory, Notifiable,InteractsWithMedia;
 

@@ -10,7 +10,7 @@ class WorkType extends Model
     use HasFactory;
     protected $guarded = [];
 
-    public function profile()
+    public function companyProfile()
     {
         return $this->belongsTo(CompanyProfile::class);
     }

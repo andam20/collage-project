@@ -36,7 +36,7 @@
                                     </div>
                                 </div>
 
-                                {{-- <div class="row mb-4">
+                                <div class="row mb-4">
                                     <label class="col-sm-3 col-form-label" for="gender">gender</label>
                                     <div class="col-sm-9">
                                         <select class="form-control select2" id="gender" name="gender" required>
@@ -47,24 +47,18 @@
                                             @lang('validation.good')
                                         </div>
                                     </div>
-                                </div> --}}
+                                </div>
 
                                 {{-- <div class="row mb-4">
                                     <label for="work_type" class="col-sm-3 col-form-label">work type</label>
                                     <div class="col-sm-9">
                                         <select class="form-control select2" id="work_type" name="work_type" required>
                                             @foreach ($workTypes as $work_type)
-                                                <option value="{{ $work_type->name }}"
+                                                <option value="{{ $work_type->id }}"
                                                     {{ $work_type->id == old('work_type', []) ? 'selected' : '' }}>
                                                     {{ $work_type->name }}</option>
                                             @endforeach
                                         </select>
-                                        <div class="valid-feedback">
-                                            @lang('validation.good')
-                                        </div>
-                                        <div class="invalid-feedback">
-                                            @lang('validation.required', ['attribute' => __('translation.action_by')])
-                                        </div>
                                     </div>
                                 </div> --}}
 
@@ -83,7 +77,7 @@
                                     </div>
                                 </div>
 
-                                
+
                                 <div class="row mb-4">
                                     <label for="start_date" class="col-sm-3 col-form-label">Start Date</label>
                                     <div class="col-sm-9">
@@ -94,17 +88,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                
-                                <div class="row mb-4">
-                                    <label for="slogan" class="col-sm-3 col-form-label">slogan</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="slogan" name="slogan"
-                                            value="{{ old('slogan') }}" required>
-                                        <div class="valid-feedback">
-                                            @lang('validation.good')
-                                        </div>
-                                    </div>
-                                </div>
+
 
                                 {{-- <div class="row mb-4">
                                     <label for="desc" class="col-sm-3 col-form-label">description</label>

@@ -89,6 +89,9 @@
                                     @endauth
                                 @endif
                             </div>
+                            {{-- <div class="navbar-btn m-3 d-none d-sm-inline-block">
+                                <a class="main-btn" href="{{ route('login-company') }}">Company</a>
+                            </div> --}}
                         </nav> <!-- navbar -->
                     </div>
                 </div> <!-- row -->
@@ -146,7 +149,7 @@
             <div class="row justify-content-center">
                 <div class="col-lg-9">
                     <div class="about-title text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
-                        <h3 class="welcome" >WELCOME</h3>
+                        <h3 class="welcome">WELCOME</h3>
 
                         <h3 class="title"><span>Welcome to our new employee expense management system </span>
                             <p style="font-size: 60%;"> designed to simplify and streamline the process of managing
@@ -465,9 +468,9 @@
                             </div>
                             <ul>
 
-                                
+
                                 <li><a href="{{ url('overview') }}"> Overview</a></li>
-                                <li><a href="{{ url('team')}}">Team</a></li>
+                                <li><a href="{{ url('team') }}">Team</a></li>
 
                             </ul>
                         </div> <!-- footer link -->

@@ -68,14 +68,6 @@
                                         </p>
                                     </div>
                                     <div class="col-6">
-                                        <h6>Slogan</h6>
-                                        <p class="text-muted">
-                                            @foreach ($companies as $item)
-                                                {{ $item->slogan }}
-                                            @endforeach
-                                        </p>
-                                    </div>
-                                    <div class="col-6">
                                         <h6>Phone</h6>
                                         <p class="text-muted">
                                             @foreach ($companies as $item)
@@ -114,6 +106,13 @@
                                             {{ $daysDifference }}
                                         </p>
                                     </div>
+
+                                    <div class="col-6">
+                                        <h6></h6>
+                                        <p class="text-muted">
+                                        </p>
+                                    </div>
+
 
                                     <div class="col-6">
                                         <a class="" href="{{ route('company-profile.edit',$id) }}"><button

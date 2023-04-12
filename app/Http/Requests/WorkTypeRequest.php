@@ -22,7 +22,7 @@ class WorktypeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ["required", "string"],
+            "name" => ["required"],
             // "company_profile_id"=>["required","exists:company_profiles,id"], 
         ];
     }
