@@ -108,9 +108,8 @@
                                     </div>
 
                                     <div class="col-6">
-                                        <h6></h6>
-                                        <p class="text-muted">
-                                        </p>
+                                        <h6>work type</h6>
+                                        <p class="text-muted">{{$item->work_type}}</p>
                                     </div>
 
 

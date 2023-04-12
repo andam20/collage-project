@@ -24,7 +24,7 @@ class CompanyProfileRequest extends FormRequest
         return [
             "name" => ["required", "string"],
             "gender" => ["required", "string"],
-            // "work_type_id" => ["required"],
+            "work_type_id" => ["required"],
             "start_date" => [ "required","date"],
             "phone_no" => ["required","min:7"],
             "email" => ["string", "required"],

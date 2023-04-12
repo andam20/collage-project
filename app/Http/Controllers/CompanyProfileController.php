@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\CompanyProfileExport;
-use App\Http\Requests\CompanyProfileRequest;
-use App\Models\CompanyProfile;
+use DateTime;
+use DataTables;
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\WorkType;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use DataTables;
-use DateTime;
+use App\Models\CompanyProfile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use App\Exports\CompanyProfileExport;
 use Illuminate\Support\Facades\Schema;
+use App\Http\Requests\CompanyProfileRequest;
 
 class CompanyProfileController extends Controller
 {
@@ -24,7 +25,7 @@ class CompanyProfileController extends Controller
         $countMale=CompanyProfile::where('gender','male')->count();
         $countFemale=CompanyProfile::where('gender','female')->count();
         if ($request->ajax()) {
-            $data = CompanyProfile::get();
+            $data = CompanyProfile::where('user_id',Auth::id())->get();
 
             $start_date = (!empty($_GET["startDate"])) ? ($_GET["startDate"]) : ('');
             $end_date = (!empty($_GET["endDate"])) ? ($_GET["endDate"]) : ('');
@@ -66,7 +67,8 @@ class CompanyProfileController extends Controller
     {
         return view('company-profile.create', [
             'companyProfile' => CompanyProfile::all()
-            ,'workTypes' => WorkType::all()
+            ,'work_types' => WorkType::all(),
+            'users'=> User::find(Auth::id())
         ]);
     }
 
@@ -75,7 +77,8 @@ class CompanyProfileController extends Controller
     {
         $post = new CompanyProfile;
         $post->name = $request->input('name');
-        // $post->work_type_id = $request->input('work_type');
+        $post->user_id = $request->input('user');
+        $post->work_type = $request->input('work_type');
         $post->start_date = $request->input('start_date');
         $post->gender = $request->input('gender');
         $post->phone_no = $request->input('phone_no','min:7');

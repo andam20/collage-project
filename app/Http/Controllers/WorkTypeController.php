@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\CompanyProfileExport;
 use App\Http\Requests\CompanyProfileRequest;
 use App\Http\Requests\WorktypeRequest;
+use App\Models\CompanyProfile;
 use DataTables;
 use App\Models\WorkType;
 use Carbon\Carbon;
@@ -37,7 +38,7 @@ class WorkTypeController extends Controller
 
     public function create()
     {
-        return view('work-type.create', ['workType' => WorkType::all()]);
+        return view('work-type.create', ['workType' => WorkType::all(),'company_profiles'=>CompanyProfile::all()]);
     }
 
 

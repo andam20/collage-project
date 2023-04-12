@@ -14,10 +14,22 @@ class CompanyProfile extends Model implements HasMedia
     use HasFactory, InteractsWithMedia;
     protected $guarded = [];
 
-    public function workTypes()
+    // public function workTypes()
+    // {
+    //     return $this->hasMany(WorkType::class);
+    // }
+
+    public function work_types()
     {
         return $this->hasMany(WorkType::class);
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+
     // public function work()
     // {
     //     return $this->hasMany(WorkType::class, 'company_profile_id');

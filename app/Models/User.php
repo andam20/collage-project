@@ -44,4 +44,10 @@ class User extends Authenticatable  implements HasMedia,MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function company_profiles()
+    {
+        return $this->hasMany(CompanyProfile::class);
+    }
 }

@@ -15,4 +15,9 @@ class WorkType extends Model
         return $this->belongsTo(CompanyProfile::class);
     }
 
+    // public function founder()
+    // {
+    //     return $this->belongsTo(Founder::class);
+    // }
+
 }

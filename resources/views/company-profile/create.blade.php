@@ -49,19 +49,33 @@
                                     </div>
                                 </div>
 
-                                {{-- <div class="row mb-4">
+                                <div class="row mb-4" style="display: none;">
+                                    <label for="user" class="col-sm-3 col-form-label">Company</label>
+                                    <div class="col-sm-9">
+                                         <input type="text" hide class="form-control" id="user" name="user"
+                                            value="{{ $users->id}}" required>
+                                        {{-- <select class="form-control select2" id="user" name="user" required>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}"
+                                                    {{ $user->id == old('user', []) ? 'selected' : '' }}>
+                                                    {{ $user->name }}</option>
+                                            @endforeach
+                                        </select> --}}
+                                    </div>
+                                </div>
+
+                                <div class="row mb-4">
                                     <label for="work_type" class="col-sm-3 col-form-label">work type</label>
                                     <div class="col-sm-9">
                                         <select class="form-control select2" id="work_type" name="work_type" required>
-                                            @foreach ($workTypes as $work_type)
-                                                <option value="{{ $work_type->id }}"
-                                                    {{ $work_type->id == old('work_type', []) ? 'selected' : '' }}>
+                                            @foreach ($work_types as $work_type)
+                                                <option value="{{ $work_type->name }}"
+                                                    {{ $work_type->name == old('work_type', []) ? 'selected' : '' }}>
                                                     {{ $work_type->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
-                                </div> --}}
-
+                                </div>
 
                                 <div class="row mb-4">
                                     <label for="image" class="col-sm-3 col-form-label">image</label>

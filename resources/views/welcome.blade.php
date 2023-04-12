@@ -185,8 +185,8 @@
                                             <span class="shape-2"></span>
                                         </div>
                                         <div class="counter-content media-body">
-                                            <span class="counter-count"><span class="counter">350</span></span>
-                                            <p class="text">Clients</p>
+                                            <span class="counter-count"><span class="counter">{{$employeeCount}}</span></span>
+                                            <p class="text">All Employees</p>
                                         </div>
                                     </div> <!-- single counter -->
                                 </div>
@@ -198,8 +198,8 @@
                                             <span class="shape-2"></span>
                                         </div>
                                         <div class="counter-content media-body">
-                                            <span class="counter-count"><span class="counter">99</span>%</span>
-                                            <p class="text">Satisfaction</p>
+                                            <span class="counter-count"><span class="counter">{{$userCount}}</span>%</span>
+                                            <p class="text">All Companies</p>
                                         </div>
                                     </div> <!-- single counter -->
                                 </div>
