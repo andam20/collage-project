@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Accountant;
+
 return [
 
     /*
@@ -40,6 +42,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'accountants' => [
+            'driver' => 'session',
+            'provider' => 'accountants',
+        ],
     ],
 
     /*
@@ -65,6 +71,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
+        'accountants' => [
+            'driver' => 'eloquent',
+            'model' => Accountant::class,
+        ],
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',

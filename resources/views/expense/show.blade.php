@@ -42,22 +42,6 @@
                                 <hr class="mt-0 mb-4">
                                 <div class="row pt-1">
                                     <div class="col-6">
-                                        <h6>title</h6>
-                                        <p class="text-muted">
-                                            @foreach ($expenses as $item)
-                                                {{ $item->title }}
-                                            @endforeach
-                                        </p>
-                                    </div>
-                                    <div class="col-6">
-                                        <h6>place</h6>
-                                        <p class="text-muted">
-                                            @foreach ($expenses as $item)
-                                                {{ $item->place }}
-                                            @endforeach
-                                        </p>
-                                    </div>
-                                    <div class="col-6">
                                         <h6>category</h6>
                                         <p class="text-muted">
                                             @foreach ($expenses as $item)
@@ -81,6 +65,34 @@
                                             @endforeach
                                         </p>
                                     </div>
+                                    
+                                    <div class="col-6">
+                                        <h6>status</h6>
+                                        <p class="text-muted">
+                                            @foreach ($expenses as $item)
+                                                {{ $item->status }}
+                                            @endforeach
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="col-6">
+                                        <h6>paid back</h6>
+                                        <p class="text-muted">
+                                            @foreach ($expenses as $item)
+                                                {{ $item->paid_back }}
+                                            @endforeach
+                                        </p>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <h6>Date</h6>
+                                        <p class="text-muted">
+                                            @foreach ($expenses as $item)
+                                                {{ $item->date }}
+                                            @endforeach
+                                        </p>
+                                    </div>
+
                                     <div class="col-6">
                                         <h6>Period After Expense:</h6>
                                         <p class="text-muted">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CompanyRequest;
 use App\Models\Company;
 use App\Models\CompanyProfile;
+use App\Models\Expense;
 use Illuminate\Http\Request;
 
 class APICompanyController extends Controller
@@ -14,7 +15,16 @@ class APICompanyController extends Controller
      */
     public function index(Request $request)
     {
-        return CompanyProfile::all();
+        $data=Expense::all();
+
+        return response()->json($data);
+    }
+
+    public function last_four(Request $request)
+    {
+        $data=Expense::latest('date')->take(4)->get();
+
+        return response()->json($data);
     }
 
     public function count(Request $request)
@@ -68,6 +78,12 @@ class APICompanyController extends Controller
     public function show($id)
     {
         return CompanyProfile::findOrFail($id)->get();
+    }
+
+    public function total($id)
+    {
+        $total = Expense::where('company_profile_id', $id)->get();
+        return response()->json(['total' => $total]);
     }
 
     /**

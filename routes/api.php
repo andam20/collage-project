@@ -29,16 +29,45 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // Route::get('employees/{id}/managers-salary', [APIEmployeeController::class,'getEmployeeManagersSalary']);
     // Route::get('/export', [APIEmployeeController::class, 'export']);
     // Route::get('/{date}/logs', [APIEmployeeController::class, 'getLogsByDate']);
-    Route::post("logout", [AuthController::class, 'logout']);
+    // Route::post("logout", [AuthController::class, 'logout']);
+});
+// Route::group(['middleware' => ['CorsMiddleware']], function () {
+//     Route::get('expense', [APICompanyController::class,'index']);
+// });
 
+
+
+Route::group(['middleware' => [\App\Http\Middleware\CorsMiddleware::class]], function () {
+    Route::get('/expense', [APICompanyController::class,'index']);
+    Route::get('/last-four', [APICompanyController::class,'last_four']);
+    // Route::('/expense/{$id}', [APICompanyController::class,'giveExpense']);
+    Route::get('/total/{$id}', [APICompanyController::class,'total']);
 });
 
+// Route::get('/expense', [APICompanyController::class,'index']);
 
-Route::resource('companies', APICompanyController::class);
+
+// Route::middleware('corsmiddleware')->get('/expense', [APICompanyController::class,'index']);
+
+// Route::group(['middleware' => ['cors']], function () {
+//     Route::get('expense', [APICompanyController::class,'index']);
+// });
+// Route::group([
+//     'middleware' => ['api', 'cors'],
+//     'namespace' => $this->namespace,
+//     'prefix' => 'api',
+// ], function ($router) {
+
+// });
+
+
+
+
 Route::get('company-number', [APICompanyController::class,'count']);
 
-
-
+Route::get('api-test',function(Request $request){
+    return $request->name;
+});
 //public route
-Route::post("login", [AuthController::class, 'login']);
-Route::post("register", [AuthController::class, 'register']);
+// Route::post("login", [AuthController::class, 'login']);
+// Route::post("register", [AuthController::class, 'register']);

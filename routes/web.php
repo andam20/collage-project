@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountantController;
+use App\Http\Controllers\AuthAccountantController;
 use App\Models\User;
 use App\Mail\HelloMail;
 use App\Models\CompanyProfile;
@@ -84,6 +85,10 @@ Route::resource("work-type", WorkTypeController::class)->except('show');
 Route::resource("expense", ExpenseController::class);
 Route::resource("accountant", AccountantController::class);
 
+
+Route::get('/auth-accountant', [AuthAccountantController::class, 'login'])->name('acc');
+// Route::post('/users/authenticate', [AuthAccountantController::class, 'login'])->name('acc');
+Route::post('/users/authenticate', [AuthAccountantController::class, 'authenticate']);
 
 
 

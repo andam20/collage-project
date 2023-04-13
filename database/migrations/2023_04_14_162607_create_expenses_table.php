@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('expenses', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
             $table->string('category');
-            $table->foreignId('company_profile_id')->constrained("company_profiles")->onUpdate("cascade")->onDelete("cascade");
             $table->double('amount');
-            $table->string('place');
-            $table->string('description')->nullable();
+            $table->date('date');
+            $table->string('description');
+            $table->enum("status",["Accepted","Rejected","Pending"]);
+            $table->enum('paid_back',["Paid Back","Not Paid Back"]);
+            $table->foreignId('company_profile_id')->constrained("company_profiles")->onUpdate("cascade")->onDelete("cascade");
             $table->timestamps();
         });
     }

@@ -115,7 +115,7 @@
                                                     {{ $loop->iteration }}{{ '- ' }}
                                                     {{ $expense->title }}</h6>
                                             @empty
-                                                {{ 'no expense' }}
+                                                {{ 'No Expense Yet' }}
                                             @endforelse
                                         </p>
                                     </div>
@@ -124,16 +124,10 @@
                                         <h6>work type</h6>
                                         <p class="text-muted">{{ $item->work_type }}</p>
                                     </div>
-                                    
-
                                     <div class="col-6">
                                         <h6></h6>
                                         <p class="text-muted"></p>
                                     </div>
-                                    
-
-
-
                                     <div class="col-6">
                                         <a class="" href="{{ route('company-profile.edit', $id) }}"><button
                                                 class="btn btn-success">
