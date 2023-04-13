@@ -15,7 +15,8 @@ class APICompanyController extends Controller
      */
     public function index(Request $request)
     {
-        return Expense::all();
+        $data=Expense::all();
+        return response()->json($data);
     }
 
     public function count(Request $request)

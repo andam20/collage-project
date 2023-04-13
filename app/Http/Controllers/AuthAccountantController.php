@@ -70,8 +70,6 @@ class AuthAccountantController extends Controller
             if ($item->password == $request->password && $item->email == $request->email) {
 
                 $formFields = Accountant::with('user')->where('id', $item->id)->get();
-                
-                
 
                 return view('auth-accountant.index', compact('formFields', 'company'));
             }
