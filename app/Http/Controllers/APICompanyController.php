@@ -16,6 +16,14 @@ class APICompanyController extends Controller
     public function index(Request $request)
     {
         $data=Expense::all();
+
+        return response()->json($data);
+    }
+
+    public function last_four(Request $request)
+    {
+        $data=Expense::latest('date')->take(4)->get();
+
         return response()->json($data);
     }
 
@@ -70,6 +78,12 @@ class APICompanyController extends Controller
     public function show($id)
     {
         return CompanyProfile::findOrFail($id)->get();
+    }
+
+    public function total($id)
+    {
+        $total = Expense::where('company_profile_id', $id)->get();
+        return response()->json(['total' => $total]);
     }
 
     /**

@@ -29,11 +29,11 @@
                         {{ __('Employee') }}
                     </x-nav-link>
                 </div>
-                {{-- <div class="hidden text-decoration-none space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden text-decoration-none space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('work-type.index')" :active="request()->routeIs('work-type.index')">
                         {{ __('Work Type') }}
                     </x-nav-link>
-                </div> --}}
+                </div>
                 <div class="hidden text-decoration-none space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('expense.index')" :active="request()->routeIs('expense.index')">
                         {{ __('Expense') }}

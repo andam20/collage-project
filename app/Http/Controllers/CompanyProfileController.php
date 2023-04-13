@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Exports\CompanyProfileExport;
 use Illuminate\Support\Facades\Schema;
 use App\Http\Requests\CompanyProfileRequest;
+use App\Models\Expense;
 
 class CompanyProfileController extends Controller
 {

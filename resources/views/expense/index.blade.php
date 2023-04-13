@@ -43,12 +43,15 @@
                 <thead class="thead-dark rounded">
                     <tr class=" rounded">
                         <th class="bg-secondary">id</th>
-                        <th class="bg-secondary">title</th>
-                        <th class="bg-secondary">employee</th>
                         <th class="bg-secondary">category</th>
-                        <th class="bg-secondary">place</th>
+                        <th class="bg-secondary">date</th>
+
+                        <th class="bg-secondary">employee</th>
                         <th class="bg-secondary">amount</th>
                         <th class="bg-secondary">description</th>
+
+                        <th class="bg-secondary">status</th>
+                        <th class="bg-secondary">paid back</th>
                         <th class="bg-secondary">Manage</th>
                     </tr>
                 </thead>
@@ -94,22 +97,25 @@ return parameterList.get(key)
                     data: 'id',
                 },
                 {
-                    data: 'title',
-                },
-                {
-                    data: 'company_profile.name',
-                },
-                {
                     data: 'category',
                 },
                 {
-                    data: 'place',
+                    data: 'date',
+                },
+                {
+                    data: 'company_profile.name',
                 },
                 {
                     data: 'amount',
                 },
                 {
                     data: 'description',
+                },
+                {
+                    data: 'status',
+                },
+                {
+                    data: 'paid_back',
                 },
                 {
                     data: 'action',

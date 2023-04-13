@@ -26,15 +26,13 @@
                         <div class="row">
                             <div class="col-8">
 
-
                                 <div class="row mb-4">
-                                    <label for="title" class="col-sm-3 col-form-label">title</label>
+                                    <label for="category" class="col-sm-3 col-form-label">category</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="title" name="title"
-                                            value="{{ $expense->title }}" required>
+                                        <input type="text" class="form-control" id="category" name="category"
+                                            value="{{ $expense->category }}" required>
                                     </div>
                                 </div>
-
 
                                 <div class="row mb-4">
                                     <label for="company_profile_id" class="col-sm-3 col-form-label">Employee</label>
@@ -57,13 +55,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row mb-4">
-                                    <label for="category" class="col-sm-3 col-form-label">category</label>
-                                    <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="category" name="category"
-                                            value="{{ $expense->category }}" required>
-                                    </div>
-                                </div>
+
 
                                 <div class="row mb-4">
                                     <label for="description" class="col-sm-3 col-form-label">description</label>
@@ -74,12 +66,42 @@
                                 </div>
 
                                 <div class="row mb-4">
-                                    <label for="place" class="col-sm-3 col-form-label">place</label>
+                                    <label for="status" class="col-sm-3 col-form-label">status</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="place" name="place"
-                                            value="{{ $expense->place }}" required>
+                                        <select class="form-control select2" id="status" name="status" required>
+                                            <option value="Accepted" @selected(old('status', $expense->status) == 'accept')> accept</option>
+                                            <option value="Pending" @selected(old('status', $expense->status) == 'pending')> pending</option>
+                                            <option value="Rejected" @selected(old('status', $expense->status) == 'reject')> reject
+                                            </option>
+                                        </select>
                                     </div>
                                 </div>
+
+                                <div class="row mb-4">
+                                    <label for="date" class="col-sm-3 col-form-label"> Date</label>
+                                    <div class="col-sm-9">
+                                        <input type="date" class="form-control" id="date" name="date"
+                                            value="{{ $expense->date }}" required>
+                                        <div class="valid-feedback">
+                                            @lang('validation.good')
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            @lang('validation.required', ['attribute' => __('translation.car.plate_number')])
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-4">
+                                    <label for="paid_back" class="col-sm-3 col-form-label">paid back</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control select2" id="status" name="status" required>
+                                            <option value="paid_back" @selected(old('paid_back', $expense->paid_back) == 'paid_back')> paid back</option>
+                                            <option value="not_paid_back" @selected(old('paid_back', $expense->not_paid_back) == 'not_paid_back')> not paid back</option>
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
 
                                 <div class="row justify-content-end">
                                     <div class="col-sm-9">

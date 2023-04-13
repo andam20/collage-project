@@ -36,8 +36,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 // });
 
 
+
 Route::group(['middleware' => [\App\Http\Middleware\CorsMiddleware::class]], function () {
     Route::get('/expense', [APICompanyController::class,'index']);
+    Route::get('/last-four', [APICompanyController::class,'last_four']);
+    // Route::('/expense/{$id}', [APICompanyController::class,'giveExpense']);
+    Route::get('/total/{$id}', [APICompanyController::class,'total']);
 });
 
 // Route::get('/expense', [APICompanyController::class,'index']);

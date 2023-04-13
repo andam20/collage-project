@@ -7,8 +7,9 @@
 
 
     <div class="col-lg-12"  align="end">
+        <a href="{{route('work-type.create')}}">
     <button style="margin-right: 22px;margin-top: 22px;" type="button" class="btn btn-rounded btn-success waves-effect waves-light"
-    data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever=""> Add Work Type</button>
+    data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever=""> Add Work Type</button></a>
 </div>
     <div class="row">
         <div class="col-lg-3"></div>
