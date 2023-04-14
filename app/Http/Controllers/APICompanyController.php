@@ -10,19 +10,66 @@ use Illuminate\Http\Request;
 
 class APICompanyController extends Controller
 {
-     /**
+    /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $data=Expense::all();
+        $data = Expense::select('id' ,'category', 'amount','date','description','status','paid_back')->get();
 
         return response()->json($data);
     }
 
+    public function profile($id)
+    {
+        $data = CompanyProfile::where('id',$id)->select('id' ,'job_title', 'salary','phone_no','start_date','first_name','last_name','email','password')->get();
+
+        return response()->json($data);
+    }
+
+    public function income($id)
+    {
+        $expense=Expense::where('company_profile_id',$id)->select('amount')->sum('amount');
+        $money_returned=Expense::where('company_profile_id',$id)->select('money_returned')->sum('money_returned');
+        $income=Expense::where('company_profile_id',$id)->select('income')->sum('income');
+        $income=($expense-$money_returned)+$income;
+
+        return response()->json($income);
+    }
+
+    public function storeExpense(Request $request)
+    {
+        $validatedData = $request->validate([
+            "category" => ["required"],
+            "amount" => ["required"],
+            "date" => ["required"],
+            "description" => ["required"],
+            "status" => ["required"],
+            "paid_back" => ["required"],
+            "company_profile_id" => ["required", "exists:company_profiles,id"],
+        ]);
+
+        $expense = new Expense;
+        $expense->category = $validatedData['category'];
+        $expense->amount = $validatedData['amount'];
+        $expense->date = $validatedData['date'];
+        $expense->description = $validatedData['description'];
+        $expense->status = $validatedData['status'];
+        $expense->paid_back = $validatedData['paid_back'];
+        $expense->company_profile_id = $validatedData['company_profile_id'];
+        $expense->save();
+
+
+
+        return response()->json([
+            'message' => 'Expense created successfully',
+            'data' => $expense
+        ]);
+    }
+
     public function last_four(Request $request)
     {
-        $data=Expense::latest('date')->take(4)->get();
+        $data = Expense::select('id' ,'category', 'amount','date','description','status','paid_back')->latest('date')->take(4)->get();
 
         return response()->json($data);
     }
@@ -31,37 +78,6 @@ class APICompanyController extends Controller
     {
         return CompanyProfile::all()->count();
     }
-
-
-    // public function managers($id)
-    // {
-
-    //     $employee = Employee::findOrFail($id);
-
-    //     $managerLine = $employee->managerLine;
-    //     $manager = $managerLine->manager;
-    //     $founder = $manager->founder;
-    //     $employees = $managerLine->employees;
-
-    //     $data = [
-    //         'managerLine' => [
-    //             'id' => $managerLine->id,
-    //             'name' => $managerLine->name
-    //         ],
-    //         'manager' => [
-    //             'id' => $manager->id,
-    //             'name' => $manager->name
-    //         ],
-    //         'founder' => [
-    //             'id' => $founder->id,
-    //             'name' => $founder->name
-    //         ],
-    //         'employees' => $employees->pluck('name')
-    //     ];
-
-    //     return response()->json($data);
-    // }
-
 
     /**
      * Store a newly created resource in storage.
@@ -82,7 +98,7 @@ class APICompanyController extends Controller
 
     public function total($id)
     {
-        $total = Expense::where('company_profile_id', $id)->get();
+        $total = Expense::where('company_profile_id', $id)->sum('amount');
         return response()->json(['total' => $total]);
     }
 

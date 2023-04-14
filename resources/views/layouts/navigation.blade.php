@@ -31,7 +31,7 @@
                 </div>
                 <div class="hidden text-decoration-none space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('work-type.index')" :active="request()->routeIs('work-type.index')">
-                        {{ __('Work Type') }}
+                        {{ __('Job Title') }}
                     </x-nav-link>
                 </div>
                 <div class="hidden text-decoration-none space-x-8 sm:-my-px sm:ml-10 sm:flex">

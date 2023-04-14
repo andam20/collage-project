@@ -29,11 +29,26 @@
 
 
                                 <div class="row mb-4">
-                                    <label for="name" class="col-sm-3 col-form-label">name</label>
+                                    <label for="first_name" class="col-sm-3 col-form-label">First Name</label>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control" id="name" name="name"
-                                            value="{{ $companyProfile->name }}" required>
+                                        <input type="text" class="form-control" id="first_name" name="first_name"
+                                            value="{{ $companyProfile->first_name }}" required>
+                                    </div>
+                                </div>
 
+                                <div class="row mb-4">
+                                    <label for="last_name" class="col-sm-3 col-form-label">Last Name</label>
+                                    <div class="col-sm-9">
+                                        <input type="text" class="form-control" id="last_name" name="last_name"
+                                            value="{{ $companyProfile->last_name }}" required>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-4">
+                                    <label for="salary" class="col-sm-3 col-form-label">Salary</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" class="form-control" id="salary" name="salary"
+                                            value="{{ $companyProfile->salary }}" required>
                                     </div>
                                 </div>
 
@@ -47,6 +62,20 @@
                                         </select>
                                     </div>
                                 </div>
+
+                                {{-- <div class="row mb-4">
+                                    <label for="work_type_id" class="col-sm-3 col-form-label">Job Title</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control select2" id="work_type_id"
+                                            name="work_type_id" required>
+                                            @foreach ($work_types as $item)
+                                                <option value="{{ $item->id }}"
+                                                    {{ $item->id == old('work_type_id', $companyProfile->work_type_id) ? 'selected' : '' }}>
+                                                    {{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div> --}}
 
                                 <div class="row mb-4">
                                     <label for="dob" class="col-sm-3 col-form-label">Start Date</label>
@@ -62,7 +91,6 @@
                                     </div>
                                 </div>
 
-                                {{--  --}}
                                 <div class="row mb-4">
                                     <label for="phone_no" class="col-sm-3 col-form-label">Phone number</label>
                                     <div class="col-sm-9">

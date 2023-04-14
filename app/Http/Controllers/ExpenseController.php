@@ -49,7 +49,6 @@ class ExpenseController extends Controller
 
     public function create()
     {
-        // dd(CompanyProfile::get('name'));
         return view('expense.create', ['expense' => Expense::all(),"data" => CompanyProfile::get()]);
     }
 

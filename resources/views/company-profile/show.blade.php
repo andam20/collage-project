@@ -37,7 +37,7 @@
                                 class="img-fluid my-5 rounded float-end" />
                             <h5 class="text-uppercase">
                                 @foreach ($companies as $item)
-                                    {{ $item->name }}
+                                    {{ $item->first_name }}{{' '}}{{$item->last_name}}
                                 @endforeach
                             </h5>
                             <p>
@@ -52,10 +52,18 @@
                                 <hr class="mt-0 mb-4">
                                 <div class="row pt-1">
                                     <div class="col-6">
-                                        <h6>Name</h6>
+                                        <h6>First Name</h6>
                                         <p class="text-muted">
                                             @foreach ($companies as $item)
-                                                {{ $item->name }}
+                                                {{ $item->first_name }}
+                                            @endforeach
+                                        </p>
+                                    </div>
+                                    <div class="col-6">
+                                        <h6>Last Name</h6>
+                                        <p class="text-muted">
+                                            @foreach ($companies as $item)
+                                                {{ $item->last_name }}
                                             @endforeach
                                         </p>
                                     </div>
@@ -121,8 +129,8 @@
                                     </div>
 
                                     <div class="col-6">
-                                        <h6>work type</h6>
-                                        <p class="text-muted">{{ $item->work_type }}</p>
+                                        <h6>Job Title</h6>
+                                        <p class="text-muted">{{ $item->job_title }}</p>
                                     </div>
                                     <div class="col-6">
                                         <h6></h6>

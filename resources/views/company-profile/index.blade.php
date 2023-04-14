@@ -154,7 +154,9 @@
                     <tr class=" rounded">
                         <th class="bg-secondary">id</th>
                         <th class="bg-secondary">image</th>
-                        <th class="bg-secondary">Name</th>
+                        <th class="bg-secondary">First Name</th>
+                        <th class="bg-secondary">Last Name</th>
+                        <th class="bg-secondary">Salary</th>
                         <th class="bg-secondary">Gender</th>
                         <th class="bg-secondary">Start Date</th>
                         <th class="bg-secondary">phone number</th>
@@ -212,7 +214,13 @@ return parameterList.get(key)
                     }
                 },
                 {
-                    data: 'name',
+                    data: 'first_name',
+                },
+                {
+                    data: 'last_name',
+                },
+                {
+                    data: 'salary',
                 },
                 {
                     data: 'gender',

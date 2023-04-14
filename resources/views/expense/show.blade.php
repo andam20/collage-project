@@ -19,11 +19,11 @@
         }
     </style>
 
-<x-slot name="header">
-    <h2 class="text-decoration-none text-xl text-gray-800 leading-tight">
-        {{ __('Show Expense') }}
-    </h2>
-</x-slot>
+    <x-slot name="header">
+        <h2 class="text-decoration-none text-xl text-gray-800 leading-tight">
+            {{ __('Show Expense') }}
+        </h2>
+    </x-slot>
 
     <div class="container">
         <div class="row d-flex justify-content-center align-items-center mt-5">
@@ -65,7 +65,7 @@
                                             @endforeach
                                         </p>
                                     </div>
-                                    
+
                                     <div class="col-6">
                                         <h6>status</h6>
                                         <p class="text-muted">
@@ -74,7 +74,41 @@
                                             @endforeach
                                         </p>
                                     </div>
+
+                                    <div class="col-6">
+                                        <h6>paid back</h6>
+                                        <p class="text-muted">
+                                            @foreach ($expenses as $item)
+                                                {{ $item->paid_back }}
+                                            @endforeach
+                                        </p>
+                                    </div>
+
+                                    <div class="col-6">
+                                        <h6>Money Retuned</h6>
+                                        <p class="text-muted">
+                                            @foreach ($expenses as $item)
+                                                @empty($item->money_returned)
+                                                    {{ 'there is no money retuned' }}
+                                                @endempty
+                                                {{ $item->money_returned }}
+                                            @endforeach
+                                        </p>
+                                    </div>
+
                                     
+                                    <div class="col-6">
+                                        <h6>Income</h6>
+                                        <p class="text-muted">
+                                            @foreach ($expenses as $item)
+                                                @empty($item->income)
+                                                    {{ 'there is no income' }}
+                                                @endempty
+                                                {{ $item->income }}
+                                            @endforeach
+                                        </p>
+                                    </div>
+
                                     <div class="col-6">
                                         <h6>paid back</h6>
                                         <p class="text-muted">
@@ -102,7 +136,7 @@
 
 
                                     <div class="col-6">
-                                        <a class="" href="{{ route('expense.edit',$id) }}"><button
+                                        <a class="" href="{{ route('expense.edit', $id) }}"><button
                                                 class="btn btn-success">
                                                 Edit Expense
                                             </button></a>

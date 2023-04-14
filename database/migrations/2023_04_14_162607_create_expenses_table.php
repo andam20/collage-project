@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('category');
             $table->double('amount');
+            $table->double('income')->nullable();
+            $table->double('money_returned')->nullable();
             $table->date('date');
             $table->string('description');
             $table->enum("status",["Accepted","Rejected","Pending"]);

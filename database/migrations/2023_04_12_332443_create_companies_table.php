@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('company_profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->date('start_date');
             $table->enum("gender",["male","female"])->default('male');
             $table->foreignId('user_id')->constrained("users")->onUpdate("cascade")->onDelete("cascade");
-            $table->string('work_type');
+            $table->string('job_title');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->double('salary');
             // $table->string("work_type")->nullable()->constrained('users')->nullOnDelete();
             // $table->foreignId('work_type_id')->constrained("company_profiles")->onUpdate("cascade")->onDelete("cascade");
             $table->double('phone_no')->unique();

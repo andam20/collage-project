@@ -38,10 +38,19 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 
 Route::group(['middleware' => [\App\Http\Middleware\CorsMiddleware::class]], function () {
-    Route::get('/expense', [APICompanyController::class,'index']);
-    Route::get('/last-four', [APICompanyController::class,'last_four']);
-    // Route::('/expense/{$id}', [APICompanyController::class,'giveExpense']);
-    Route::get('/total/{$id}', [APICompanyController::class,'total']);
+    //total expense
+    Route::get('/expense', [APICompanyController::class, 'index']);
+    //last four expenses
+    Route::get('/last-four', [APICompanyController::class, 'last_four']);
+    //store expense
+    Route::post('/store-expense', [APICompanyController::class, 'storeExpense']);
+    //total expense
+    Route::get('/total/{id}', [APICompanyController::class, 'total']);
+    //profile job title , salary, start date, first name ,last name 
+    Route::get('/profile/{id}', [APICompanyController::class, 'profile']);
+    //income
+    Route::get('/income/{id}', [APICompanyController::class, 'income']);
+
 });
 
 // Route::get('/expense', [APICompanyController::class,'index']);
@@ -63,9 +72,9 @@ Route::group(['middleware' => [\App\Http\Middleware\CorsMiddleware::class]], fun
 
 
 
-Route::get('company-number', [APICompanyController::class,'count']);
+Route::get('company-number', [APICompanyController::class, 'count']);
 
-Route::get('api-test',function(Request $request){
+Route::get('api-test', function (Request $request) {
     return $request->name;
 });
 //public route
