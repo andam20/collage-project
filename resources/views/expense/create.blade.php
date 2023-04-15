@@ -60,17 +60,36 @@
                                     </div>
                                 </div>
 
-                                <div class="mb-3">
-                                    <label for="company_profile_id"
-                                        class="col-form-label">which Employee :</label>
-                                    <select class="form-control select2" id="company_profile_id"
-                                        name="company_profile_id" required>
-                                        @foreach ($data as $item)
-                                            <option value="{{ $item->id }}"
-                                                {{ $item->id == old('company_profile') ? 'selected' : '' }}>
-                                                {{ $item->name }}</option>
-                                        @endforeach
-                                    </select>
+                                <div class="row mb-4">
+                                    <label for="income" class="col-sm-3 col-form-label">Income</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" placeholder="it can be null" class="form-control"
+                                            id="income" name="income" value="{{ old('income') }}">
+                                    </div>
+                                </div>
+
+                                <div class="row mb-4">
+                                    <label for="money_returned" class="col-sm-3 col-form-label">money returned</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" placeholder="it can be null" class="form-control"
+                                            id="money_returned" name="money_returned"
+                                            value="{{ old('money_returned') }}">
+                                    </div>
+                                </div>
+
+                                <div class="mb-4 row">
+                                    <label for="company_profile_id" class="col-sm-3 col-form-label">which Employee
+                                        :</label>
+                                    <div class="col-sm-9">
+                                        <select class="form-control select2" id="company_profile_id"
+                                            name="company_profile_id" required>
+                                            @foreach ($data as $item)
+                                                <option value="{{ $item->id }}"
+                                                    {{ $item->id == old('company_profile') ? 'selected' : '' }}>
+                                                    {{ $item->first_name }}{{' '}}{{$item->last_name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
 
                                 <div class="row mb-4">
@@ -82,7 +101,7 @@
                                             @lang('validation.good')
                                         </div>
                                     </div>
-                                </div>  
+                                </div>
 
                                 <div class="row mb-4">
                                     <label class="col-sm-3 col-form-label" for="status">status</label>
@@ -92,6 +111,9 @@
                                             <option value="Rejected" @selected(old('status') == 'reject')>reject</option>
                                             <option value="Pending" @selected(old('status') == 'pending')>pending</option>
                                         </select>
+                                        <div class="valid-feedback">
+                                            @lang('validation.good')
+                                        </div>
                                     </div>
                                 </div>
 
@@ -100,11 +122,12 @@
                                     <div class="col-sm-9">
                                         <select class="form-control select2" id="paid_back" name="paid_back" required>
                                             <option value="Paid Back" @selected(old('paid_back') == 'paid_back')>paid back</option>
-                                            <option value="Not Paid Back" @selected(old('paid_back') == 'not_paid_back')>not paid back</option>
+                                            <option value="Not Paid Back" @selected(old('paid_back') == 'not_paid_back')>not paid back
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
-                                
+
 
                                 <div class="row justify-content-end">
                                     <div class="col-sm-9">

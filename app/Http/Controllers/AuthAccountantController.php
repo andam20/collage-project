@@ -4,45 +4,44 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Accountant;
+use App\Models\Company;
+use App\Models\CompanyProfile;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 
 class AuthAccountantController extends Controller
 {
-    // Show Register/Create Form
-    //  public function create() {
-    //     return view('auth-accountant.register');
-    // }
 
-    // Create New User
-    // public function store(Request $request) {
-    //     $formFields = $request->validate([
-    //         'name' => ['required', 'min:3'],
-    //         'email' => ['required', 'email', Rule::unique('users', 'email')],
-    //         'password' => 'required|confirmed|min:6'
-    //     ]);
 
-    //     // Hash Password
-    //     $formFields['password'] = bcrypt($formFields['password']);
+    
+    public function index(Request $request)
+    {
 
-    //     // Create User
-    //     $user = Accountant::create($formFields);
+        $accountantId = $request->session()->get('accountant_id');
+        $accountant = Accountant::find($accountantId)->all();
 
-    //     // Login
-    //     auth()->login($user);
+        return view('auth-accountant.profile', compact('accountant'));
+    }
 
-    //     return redirect('/')->with('message', 'User created and logged in');
-    // }
+    public function employee(Request $request)
+    {
 
-    // Logout User
+        $accountantId = $request->session()->get('accountant_id');
+        $accountant = Accountant::with('user')->find($accountantId)->all();
+
+     
+
+        return view('auth-accountant.employee', compact('accountant'));
+    }
+
+
+
     public function logout(Request $request)
     {
-        auth()->logout();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-        return redirect('/')->with('message', 'You have been logged out!');
+        $request->session()->forget('accountant_id');
+        $request->session()->flush();
+        return view('auth-accountant.login');
     }
 
     // Show Login Form
@@ -51,31 +50,24 @@ class AuthAccountantController extends Controller
         return view('auth-accountant.login');
     }
 
-
-
     // Authenticate User
     public function authenticate(Request $request)
     {
+        $email = $request->input('email');
+        $password = $request->input('password');
+        $accountant = Accountant::attempt($email, $password);
 
-        $acc = Accountant::all();
-
-        $formFields = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => 'required'
-        ]);
-
-        $formFields = Accountant::all();
-        $company = User::with(['company_profiles','accountant'])->get();
-        foreach ($formFields as $item) {
-            if ($item->password == $request->password && $item->email == $request->email) {
-
-                $formFields = Accountant::with('user')->where('id', $item->id)->get();
-
-                return view('auth-accountant.index', compact('formFields', 'company'));
-            }
+        if ($accountant) {
+            $request->session()->put('accountant_id', $accountant->id);
+            $id=$accountant->id;
+            $accountant=Accountant::with('user')->where('id',$id)->get();
+            return view('auth-accountant.index',compact('accountant'));
+        } else {
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.'
+            ]);
         }
 
-        return back()->withErrors(['email' => 'Invalid Credentials'])->onlyInput('email');
     }
 
 }

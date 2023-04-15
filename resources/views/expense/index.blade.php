@@ -103,7 +103,7 @@ return parameterList.get(key)
                     data: 'date',
                 },
                 {
-                    data: 'company_profile.name',
+                    data: 'company_profile.first_name',
                 },
                 {
                     data: 'amount',

@@ -55,6 +55,24 @@
                                     </div>
                                 </div>
 
+                                <div class="row mb-4">
+                                    <label for="income" class="col-sm-3 col-form-label">Income</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" class="form-control" id="income" name="income"
+                                            value="{{ $expense->income }}" placeholder="it can be empty">
+                                    </div>
+                                </div>
+                                
+                                <div class="row mb-4">
+                                    <label for="money_returned" class="col-sm-3 col-form-label">Money Returned</label>
+                                    <div class="col-sm-9">
+                                        <input type="number" class="form-control" id="money_returned" name="money_returned"
+                                            value="{{ $expense->money_returned }}" placeholder="it can be empty">
+                                    </div>
+                                </div>
+
+                                
+
 
 
                                 <div class="row mb-4">
@@ -94,9 +112,9 @@
                                 <div class="row mb-4">
                                     <label for="paid_back" class="col-sm-3 col-form-label">paid back</label>
                                     <div class="col-sm-9">
-                                        <select class="form-control select2" id="status" name="status" required>
-                                            <option value="paid_back" @selected(old('paid_back', $expense->paid_back) == 'paid_back')> paid back</option>
-                                            <option value="not_paid_back" @selected(old('paid_back', $expense->not_paid_back) == 'not_paid_back')> not paid back</option>
+                                        <select class="form-control select2" id="paid_back" name="paid_back" required>
+                                            <option value="Paid Back" @selected(old('paid_back', $expense->paid_back) == 'paid_back')> paid back</option>
+                                            <option value="Not Paid Back" @selected(old('paid_back', $expense->not_paid_back) == 'not_paid_back')> not paid back</option>
                                             </option>
                                         </select>
                                     </div>

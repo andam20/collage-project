@@ -1,6 +1,8 @@
 <?php
 
+use App\Models\User;
 use App\Models\Accountant;
+use App\Models\CompanyProfile;
 
 return [
 
@@ -42,9 +44,13 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'accountants' => [
+        'accountant' => [
             'driver' => 'session',
             'provider' => 'accountants',
+        ],
+        'employee' => [
+            'driver' => 'session',
+            'provider' => 'employee',
         ],
     ],
 
@@ -68,17 +74,17 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => User::class,
         ],
 
         'accountants' => [
             'driver' => 'eloquent',
-            'model' => Accountant::class,
+            'model' => App\Models\Accountant::class,
         ],
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'employee' => [
+            'driver' => 'eloquent',
+            'model' => CompanyProfile::class,
+        ],
     ],
 
     /*

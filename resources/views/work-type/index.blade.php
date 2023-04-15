@@ -19,7 +19,7 @@
 
     <x-slot name="header">
         <h2 class="text-decoration-none text-xl text-gray-800 leading-tight">
-            {{ __('Work Type') }}
+            {{ __('Job Title') }}
         </h2>
     </x-slot>
     <div class="row">
@@ -33,7 +33,7 @@
                             </div>
                         </div>
                         <button type="button" class="btn btn-rounded btn-success waves-effect waves-light"
-                            data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever=""> Add Work Type</button>
+                            data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever=""> Add Job Title</button>
                     </div>
                     <table id="datatable" class="table-hover table-bordered nowrap w-100 table">
                         <thead class="table-light">

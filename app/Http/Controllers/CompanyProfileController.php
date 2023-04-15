@@ -68,8 +68,8 @@ class CompanyProfileController extends Controller
     {
         return view('company-profile.create', [
             'companyProfile' => CompanyProfile::all()
-            ,'work_types' => WorkType::all(),
-            'users'=> User::find(Auth::id())
+            ,'job_titles' => WorkType::all(),
+            'users'=> User::find(Auth::id()),
         ]);
     }
 
@@ -77,9 +77,11 @@ class CompanyProfileController extends Controller
     public function store(Request $request)
     {
         $post = new CompanyProfile;
-        $post->name = $request->input('name');
+        $post->first_name = $request->input('first_name');
+        $post->last_name = $request->input('last_name');
+        $post->salary = $request->input('salary');
         $post->user_id = $request->input('user');
-        $post->work_type = $request->input('work_type');
+        $post->job_title = $request->input('job_title');
         $post->start_date = $request->input('start_date');
         $post->gender = $request->input('gender');
         $post->phone_no = $request->input('phone_no','min:7');
@@ -142,7 +144,8 @@ public function show(Request $request, $id)
 
     public function edit(CompanyProfile $companyProfile)
     {
-        return view('company-profile.edit', compact('companyProfile'));
+        $work_types=WorkType::all();
+        return view('company-profile.edit', compact('companyProfile','work_types'));
     }
 
     public function update(CompanyProfileRequest $request, CompanyProfile $companyProfile)

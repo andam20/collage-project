@@ -24,6 +24,8 @@ class ExpenseRequest extends FormRequest
         return [
             "category" => ["required", "string"],
             "amount" => ["required"],
+            "income" => ["nullable","numeric","min:0"],
+            "money_returned" => ["nullable","numeric","min:0"],
             "date" => ["required"],
             "description" => ["required", "string"],
             "status" => ["required"],

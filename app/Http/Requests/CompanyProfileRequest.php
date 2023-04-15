@@ -22,9 +22,11 @@ class CompanyProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => ["required", "string"],
+            "first_name" => ["required", "string"],
+            "last_name" => ["required", "string"],
+            "salary" => ["required","numeric","min:0"],
             "gender" => ["required", "string"],
-            "work_type_id" => ["required"],
+            // "work_type_id" => ["required"],
             "start_date" => [ "required","date"],
             "phone_no" => ["required","min:7"],
             "email" => ["string", "required"],
