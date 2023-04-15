@@ -3,7 +3,7 @@ permissions:
       contents: write
 on:
     push:
-        branches: ["main"]
+        branches: ["master"]
 jobs:
 
     deploy_on_server:
@@ -21,5 +21,5 @@ jobs:
                   password: ${{ secrets.SSH_PASSWORD }}
                   debug: true
                   script: |
-                    ps aux | grep 'php artisan serve' | awk '{print $2}' | xargs kill && nohup php artisan serve --host=164.90.184.186 --port=8080 > /dev/null 2>&1 &
+                    cd /var/www/${{ secrets.HOST }} && ps aux | grep 'php artisan serve' | awk '{print $2}' | xargs kill && nohup php artisan serve --host=${{ secrets.HOST }} --port=8080 > /dev/null 2>&1 &
 
