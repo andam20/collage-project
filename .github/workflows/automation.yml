@@ -1,0 +1,25 @@
+name: serverless
+permissions:
+      contents: write
+on:
+    push:
+        branches: ["master"]
+jobs:
+
+    deploy_on_server:
+        runs-on: ubuntu-latest
+        steps:
+            -
+              name: checkout
+              uses: actions/checkout@v3
+            -
+              name: login to ssh and rebuild
+              uses: appleboy/ssh-action@v0.1.8
+              with:
+                  host: ${{ secrets.HOST }}
+                  username: ${{ secrets.SSH_USERNAME }}
+                  password: ${{ secrets.SSH_PASSWORD }}
+                  debug: true
+                  script: |
+                    cd /var/www/${{ secrets.HOST }} && git pull &&  ps aux | grep 'php artisan serve' | awk '{print $2}' | xargs kill && nohup php artisan serve --host=${{ secrets.HOST }} --port=8080 > /dev/null 2>&1 &
+
