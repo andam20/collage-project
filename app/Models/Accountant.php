@@ -14,6 +14,20 @@ class Accountant extends Model implements AuthenticatableContract
 
     protected $guarded = [];
 
+   
+
+
+    public static function attempt($email, $password)
+    {
+        $accountant = static::where('email', $email)->where('password', $password)->first();
+
+        if ($accountant) {
+            return $accountant;
+        }
+
+        return false;
+    }
+    
     public function user()
     {
         return $this->belongsTo(User::class);

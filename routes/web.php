@@ -86,7 +86,12 @@ Route::resource("expense", ExpenseController::class);
 Route::resource("accountant", AccountantController::class);
 
 
+Route::get('/acc-profile', [AuthAccountantController::class,'index'])->name('acc-profile');
+Route::get('/acc-employee', [AuthAccountantController::class,'employee'])->name('acc-employee');
+
+
 Route::get('/auth-accountant', [AuthAccountantController::class, 'login'])->name('acc');
+Route::post('/auth-accountant-logout', [AuthAccountantController::class, 'logout'])->name('acc-logout');
 // Route::post('/users/authenticate', [AuthAccountantController::class, 'login'])->name('acc');
 Route::post('/users/authenticate', [AuthAccountantController::class, 'authenticate']);
 
