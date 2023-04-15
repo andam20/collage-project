@@ -73,6 +73,7 @@ Route::get('/my-chart', [CompanyProfileController::class, 'chartData'])->name('c
 
 
 Route::resource("company-profile", CompanyProfileController::class)->name('*', 'company-profile');
+Route::get("company-profile/{id}", [CompanyProfileController::class,'destroy'])->name('company-profile.destroy');
 
 // Route::get("company-profile", function(){
 //     Mail::to('andam.00012789@gmail.com')->send(new HelloMail());
@@ -94,7 +95,6 @@ Route::get('/auth-accountant', [AuthAccountantController::class, 'login'])->name
 Route::post('/auth-accountant-logout', [AuthAccountantController::class, 'logout'])->name('acc-logout');
 // Route::post('/users/authenticate', [AuthAccountantController::class, 'login'])->name('acc');
 Route::post('/users/authenticate', [AuthAccountantController::class, 'authenticate']);
-
 
 
 

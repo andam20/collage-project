@@ -6,6 +6,7 @@ use DateTime;
 use DataTables;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Expense;
 use App\Models\WorkType;
 use Illuminate\Http\Request;
 use App\Models\CompanyProfile;
@@ -14,19 +15,18 @@ use Illuminate\Support\Facades\Auth;
 use App\Exports\CompanyProfileExport;
 use Illuminate\Support\Facades\Schema;
 use App\Http\Requests\CompanyProfileRequest;
-use App\Models\Expense;
 
 class CompanyProfileController extends Controller
 {
     public function index(Request $request)
     {
 
-        $gender=CompanyProfile::select('gender')->get()->unique('gender');
-        $count=CompanyProfile::count();
-        $countMale=CompanyProfile::where('gender','male')->count();
-        $countFemale=CompanyProfile::where('gender','female')->count();
+        $gender = CompanyProfile::select('gender')->get()->unique('gender');
+        $count = CompanyProfile::count();
+        $countMale = CompanyProfile::where('gender', 'male')->count();
+        $countFemale = CompanyProfile::where('gender', 'female')->count();
         if ($request->ajax()) {
-            $data = CompanyProfile::where('user_id',Auth::id())->get();
+            $data = CompanyProfile::where('user_id', Auth::id())->get();
 
             $start_date = (!empty($_GET["startDate"])) ? ($_GET["startDate"]) : ('');
             $end_date = (!empty($_GET["endDate"])) ? ($_GET["endDate"]) : ('');
@@ -49,10 +49,20 @@ class CompanyProfileController extends Controller
                 ->addColumn('action', function ($row) {
                     $td = '<td>';
                     $td .= '<div class="d-flex">';
-                    $td .= '<a href="' . route('company-profile.show', $row->id) . '" type="button" class="btn btn-sm btn-info waves-effect waves-light me-1">' . 'show' . '</a>';
-                    $td .= '<a href="' . route('company-profile.edit', $row->id) . '" type="button" class="btn btn-sm btn-success waves-effect waves-light me-1">' . 'edit' . '</a>';
-                    $td .= '<a href="' . route('company-profile.destroy', $row->id) . '" type="button" class="btn btn-sm btn-danger waves-effect waves-light me-1">' . 'delete' . '</a>';
-                    $td .= "</div>";
+                    $td .= '<div class="me-1">';
+                    $td .= '<a href="' . route('company-profile.show', $row->id) . '" type="button" class="btn btn-sm btn-info waves-effect waves-light">' . 'show' . '</a>';
+                    $td .= '</div>';
+                    $td .= '<div class="me-1">';
+                    $td .= '<a href="' . route('company-profile.edit', $row->id) . '" type="button" class="btn btn-sm btn-success waves-effect waves-light">' . 'edit' . '</a>';
+                    $td .= '</div>';
+                    $td .= '<div>';
+                    $td .= '<form action="' . route('company-profile.destroy', $row->id) . '" method="POST">';
+                    $td .= csrf_field();
+                    $td .= method_field('DELETE');
+                    $td .= '<button type="submit" class="btn btn-sm btn-danger waves-effect waves-light">' . 'delete' . '</button>';
+                    $td .= '</form>';
+                    $td .= '</div>';
+                    $td .= '</div>';
                     $td .= "</td>";
                     return $td;
                 })
@@ -61,15 +71,16 @@ class CompanyProfileController extends Controller
                 })
                 ->make(true);
         }
-        return view('company-profile.index',compact('count','countMale','countFemale','gender'));
+        return view('company-profile.index', compact('count', 'countMale', 'countFemale', 'gender'));
     }
 
     public function create()
     {
         return view('company-profile.create', [
             'companyProfile' => CompanyProfile::all()
-            ,'job_titles' => WorkType::all(),
-            'users'=> User::find(Auth::id()),
+            ,
+            'job_titles' => WorkType::all(),
+            'users' => User::find(Auth::id()),
         ]);
     }
 
@@ -84,10 +95,10 @@ class CompanyProfileController extends Controller
         $post->job_title = $request->input('job_title');
         $post->start_date = $request->input('start_date');
         $post->gender = $request->input('gender');
-        $post->phone_no = $request->input('phone_no','min:7');
+        $post->phone_no = $request->input('phone_no', 'min:7');
         $post->email = $request->input('email');
         $post->address = $request->input('address');
-        $post->password = $request->input('password','min:8',);
+        $post->password = $request->input('password', 'min:8', );
         $post->save();
 
         if ($request->hasFile('image')) {
@@ -98,7 +109,7 @@ class CompanyProfileController extends Controller
     }
 
 
-public function show(Request $request, $id)
+    public function show(Request $request, $id)
     {
         // $cate=WorkType::with('company_profile')->get();
 
@@ -106,7 +117,6 @@ public function show(Request $request, $id)
         // dd($companies);
         $companyProfile = CompanyProfile::find($id); // get a specific CompanyProfile model instance
         $imageUrl = asset($companyProfile->getFirstMedia('images')->getUrl());
-
 
         $now = Carbon::now();
         $otherDateObject = DB::table('company_profiles')->where('id', $id)->value('start_date');
@@ -144,13 +154,12 @@ public function show(Request $request, $id)
 
     public function edit(CompanyProfile $companyProfile)
     {
-        $work_types=WorkType::all();
-        return view('company-profile.edit', compact('companyProfile','work_types'));
+        $work_types = WorkType::all();
+        return view('company-profile.edit', compact('companyProfile', 'work_types'));
     }
 
     public function update(CompanyProfileRequest $request, CompanyProfile $companyProfile)
     {
-
         $validated = $request->validated();
         unset($validated['image']);
         $companyProfile->update($validated);
@@ -163,32 +172,6 @@ public function show(Request $request, $id)
         }
 
         return redirect()->route('company-profile.index');
-    }
-
-
-    public function chartData()
-    {
-        $data = [
-            'labels' => [],
-            'datasets' => [
-                [
-                    'label' => 'My First dataset',
-                    'backgroundColor' => 'rgba(255, 99, 132, 0.2)',
-                    'borderColor' => 'rgba(255,99,132,1)',
-                    'borderWidth' => 1,
-                    'hoverBackgroundColor' => 'rgba(255,99,132,0.4)',
-                    'hoverBorderColor' => 'rgba(255,99,132,1)',
-                    'data' => [0, 0, 0, 0, 0, 0, 0],
-                ]
-            ]
-        ];
-
-        $workType = WorkType::get();
-        $numOfUser = User::get()->count();
-        $male = CompanyProfile::get()->where('gender', 'male')->count();
-        $female = CompanyProfile::get()->where('gender', 'female')->count();
-
-        return view('make-profile.chart', compact('data', 'numOfUser', 'male', 'female', 'workType'));
     }
 
 

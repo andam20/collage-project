@@ -42,7 +42,7 @@
                                             @foreach ($company as $item)
                                                 <option value="{{ $item->id }}"
                                                     {{ $item->id == old('company_profile_id', $expense->company_profile_id) ? 'selected' : '' }}>
-                                                    {{ $item->name }}</option>
+                                                    {{ $item->first_name }}{{' '}}{{ $item->last_name }}</option>
                                             @endforeach
                                         </select>
                                     </div>

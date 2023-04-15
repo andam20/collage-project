@@ -29,10 +29,20 @@ class AccountantController extends Controller
                 ->addColumn('action', function ($row) {
                     $td = '<td>';
                     $td .= '<div class="d-flex">';
-                    $td .= '<a href="' . route('accountant.show', $row->id) . '" type="button" class="btn btn-sm btn-info waves-effect waves-light me-1">' . 'show' . '</a>';
-                    $td .= '<a href="' . route('accountant.edit', $row->id) . '" type="button" class="btn btn-sm btn-success waves-effect waves-light me-1">' . 'Edit Accountant' . '</a>';
-                    $td .= '<a href="javascript:void(0)" data-id="' . $row->id . '" data-url="' . route('accountant.destroy', $row->id) . '"  class="btn btn-sm btn-danger delete-btn">' . 'Delete Accountant' . '</a>';
-                    $td .= "</div>";
+                    $td .= '<div class="me-1">';
+                    $td .= '<a href="' . route('accountant.show', $row->id) . '" type="button" class="btn btn-sm btn-info waves-effect waves-light">' . 'show' . '</a>';
+                    $td .= '</div>';
+                    $td .= '<div class="me-1">';
+                    $td .= '<a href="' . route('accountant.edit', $row->id) . '" type="button" class="btn btn-sm btn-success waves-effect waves-light">' . 'edit' . '</a>';
+                    $td .= '</div>';
+                    $td .= '<div>';
+                    $td .= '<form action="' . route('accountant.destroy', $row->id) . '" method="POST">';
+                    $td .= csrf_field();
+                    $td .= method_field('DELETE');
+                    $td .= '<button type="submit" class="btn btn-sm btn-danger waves-effect waves-light">' . 'delete' . '</button>';
+                    $td .= '</form>';
+                    $td .= '</div>';
+                    $td .= '</div>';
                     $td .= "</td>";
                     return $td;
                 })
