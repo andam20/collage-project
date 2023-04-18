@@ -201,7 +201,7 @@
                                             <span class="shape-2"></span>
                                         </div>
                                         <div class="counter-content media-body">
-                                            <span class="counter-count"><span class="counter">{{$userCount}}</span>%</span>
+                                            <span class="counter-count"><span class="counter">{{$userCount}}</span></span>
                                             <p class="text">All Companies</p>
                                         </div>
                                     </div> <!-- single counter -->
@@ -214,8 +214,8 @@
                                             <span class="shape-2"></span>
                                         </div>
                                         <div class="counter-content media-body">
-                                            <span class="counter-count"><span class="counter">870</span></span>
-                                            <p class="text">Projects</p>
+                                            <span class="counter-count"><span class="counter">{{$employeeCount}}</span></span>
+                                            <p class="text">Number of Accountant</p>
                                         </div>
                                     </div> <!-- single counter -->
                                 </div>
@@ -408,8 +408,8 @@
                                 <i class="lni-map-marker"></i>
                             </div>
                             <div class="contact-info-content media-body">
-                                <p class="text">Iraq - Erbil - Lawan <br>
-                                    1202 Dw.</p>
+                                <p class="text">Iraq - Erbil<br>
+                                    Kasnazan - lawan.</p>
                                 </p>
                             </div>
                         </div> <!-- single contact info -->
@@ -421,8 +421,7 @@
                                 <i class="lni-envelope"></i>
                             </div>
                             <div class="contact-info-content media-body">
-                                <p class="text">EmployeeExpense@gmail.com</p>
-                                <p class="text">EmployeeExpenseMangaement@gmail.com</p>
+                                <p class="text">employeeexpense3@gmail.com</p>
                             </div>
                         </div> <!-- single contact info -->
                     </div>
@@ -433,8 +432,8 @@
                                 <i class="lni-phone"></i>
                             </div>
                             <div class="contact-info-content media-body">
-                                <p class="text">0770 000 0000</p>
-                                <p class="text">0750 000 0000</p>
+                                <p class="text">750 130 0022</p>
+                                <p class="text">751 119 6343</p>
                             </div>
                         </div> <!-- single contact info -->
                     </div>
@@ -484,17 +483,13 @@
                                 <h5 class="title">Contact Info</h5>
                             </div>
                             <div class="contact pt-10">
-                                <p class="text">Iraq - Erbil - Lawan <br>
-                                    1202 Dw.</p>
-                                <p class="text">EmployeeExpense@gmail.com</p>
-                                <p class="text">0770 000 0000</p>
+                                <p class="text">Iraq - Erbil<br>
+                                    Kasnazan - lawan.</p>
+                                </p>
+                                <p class="text">employeeexpense3@gmail.com</p>
+                                <p class="text">783 087 2898</p>
 
-                                <ul class="social mt-40">
-                                    <li><a href="#"><i class="lni-facebook"></i></a></li>
-                                    <li><a href="#"><i class="lni-twitter"></i></a></li>
-                                    <li><a href="#"><i class="lni-instagram"></i></a></li>
-                                    <li><a href="#"><i class="lni-linkedin"></i></a></li>
-                                </ul>
+                               
                             </div> <!-- contact -->
                         </div> <!-- footer contact -->
                     </div>

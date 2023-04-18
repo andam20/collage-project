@@ -13,6 +13,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WorkTypeController;
 use App\Http\Controllers\CompanyProfileController;
+use App\Models\Accountant;
 use App\Models\Employee;
 
 /*
@@ -107,6 +108,11 @@ View::composer(['*'],function($view){
   View::composer(['*'],function($view){
     $employeeCount=CompanyProfile::get()->count();
     $view->with('employeeCount',$employeeCount);
+  });
+
+  View::composer(['*'],function($view){
+    $accountantCount=Accountant::get()->count();
+    $view->with('employeeCount',$accountantCount);
   });
 
   View::composer(['*'],function($view){
