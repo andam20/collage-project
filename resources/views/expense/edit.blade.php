@@ -35,6 +35,20 @@
                                 </div>
 
                                 <div class="row mb-4">
+                                    <label for="image" class="col-sm-3 col-form-label">image</label>
+                                    <div class="col-sm-9">
+                                        <input type="file" accept="jpg,png,jpeg,gif,svg" class="form-control"
+                                            id="image" name="image" value="{{ old('image') }}">
+                                        <div class="valid-feedback">
+                                            @lang('validation.good')
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            @lang('validation.required', ['attribute' => __('translation.image')])
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-4">
                                     <label for="company_profile_id" class="col-sm-3 col-form-label">Employee</label>
                                     <div class="col-sm-9">
                                         <select class="form-control select2" id="company_profile_id"

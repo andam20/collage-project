@@ -27,14 +27,245 @@
     <div class="row m-2 float-center">
         <div class="col-sm-12 col-md-6">
             <div class="dt-buttons btn-group flex-wrap">
-                <a href="{{ route('expense.create') }}"><button
-                        class="btn btn-primary buttons-csv buttons-html5" tabindex="0" aria-controls="example1"
-                        type="button"><span>Create New
+                <a href="{{ route('expense.create') }}"><button class="btn btn-primary buttons-csv buttons-html5"
+                        tabindex="0" aria-controls="example1" type="button"><span>Create New
                             expense</span></button></a>
                 <p class="m-1"></p>
-             </div>
+            </div>
         </div>
     </div>
+
+
+    <div class="row">
+        <div class="col-md-2 m-2">
+            <div class="card mini-stats-wid">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="flex-grow-1 text-uppercase">
+                            amount of all expense
+                            <p class="text-muted fw-medium"></p>
+                            <h4 class="mb-0">{{ $amount }}</h4>
+                        </div>
+                        <div class="flex-shrink-0 align-self-center">
+                            {{-- <a href="{{ route('') }}"> --}}
+                            <a>
+                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                                    <span class="avatar-title">
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 m-2">
+            <div class="card mini-stats-wid">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="flex-grow-1 text-uppercase">
+                            number of expense
+                            <p class="text-muted fw-medium"></p>
+                            <h4 class="mb-0">{{ $amountCount }}</h4>
+                        </div>
+                        <div class="flex-shrink-0 align-self-center">
+                            {{-- <a href="{{ route('') }}"> --}}
+                            <a>
+                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                                    <span class="avatar-title">
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 m-2">
+            <div class="card mini-stats-wid">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="flex-grow-1 text-uppercase">
+                            amount of all income
+                            <p class="text-muted fw-medium"></p>
+                            <h4 class="mb-0">{{ $income }}</h4>
+                        </div>
+                        <div class="flex-shrink-0 align-self-center">
+                            {{-- <a href="{{ route('') }}"> --}}
+                            <a>
+                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                                    <span class="avatar-title">
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 m-2">
+            <div class="card mini-stats-wid">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="flex-grow-1 text-uppercase">
+                            number of incomes
+                            <p class="text-muted fw-medium"></p>
+                            <h4 class="mb-0">{{ $incomeCount }}</h4>
+                        </div>
+                        <div class="flex-shrink-0 align-self-center">
+                            {{-- <a href="{{ route('') }}"> --}}
+                            <a>
+                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                                    <span class="avatar-title">
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2 m-2">
+            <div class="card mini-stats-wid">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="flex-grow-1 text-uppercase">
+                            number of rejtes
+                            <p class="text-muted fw-medium"></p>
+                            <h4 class="mb-0">{{ $reject }}</h4>
+                        </div>
+                        <div class="flex-shrink-0 align-self-center">
+                            {{-- <a href="{{ route('') }}"> --}}
+                            <a>
+                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                                    <span class="avatar-title">
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-2 m-2">
+            <div class="card mini-stats-wid">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="flex-grow-1 text-uppercase">
+                            number of Accepted
+                            <p class="text-muted fw-medium"></p>
+                            <h4 class="mb-0">{{ $accept }}</h4>
+                        </div>
+                        <div class="flex-shrink-0 align-self-center">
+                            {{-- <a href="{{ route('') }}"> --}}
+                            <a>
+                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                                    <span class="avatar-title">
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2 m-2">
+            <div class="card mini-stats-wid">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="flex-grow-1 text-uppercase">
+                            number of Pending
+                            <p class="text-muted fw-medium"></p>
+                            <h4 class="mb-0">{{ $pending }}</h4>
+                        </div>
+                        <div class="flex-shrink-0 align-self-center">
+                            {{-- <a href="{{ route('') }}"> --}}
+                            <a>
+                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                                    <span class="avatar-title">
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2 m-2">
+            <div class="card mini-stats-wid">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="flex-grow-1 text-uppercase">
+                            no. not paid backs
+                            <p class="text-muted fw-medium"></p>
+                            <h4 class="mb-0">{{ $not_paid_back }}</h4>
+                        </div>
+                        <div class="flex-shrink-0 align-self-center">
+                            <a>
+                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                                    <span class="avatar-title">
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2 m-2">
+            <div class="card mini-stats-wid">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="flex-grow-1 text-uppercase">
+                            no. paid backs
+                            <p class="text-muted fw-medium"></p>
+                            <h4 class="mb-0">{{ $paid_back }}</h4>
+                        </div>
+                        <div class="flex-shrink-0 align-self-center">
+                            {{-- <a href="{{ route('') }}"> --}}
+                            <a>
+                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
+                                    <span class="avatar-title">
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-3 m-2">
+            <div class="card mini-stats-wid">
+                <div class="card-body">
+                    <div class="d-flex">
+                        <div class="flex-grow-1 text-uppercase">
+                            <p class="text-muted fw-medium text-uppercase"> top 3 employees with expense
+                            </p>
+                            @forelse ($topCompanyProfiles as $item)
+                                {{ $loop->iteration }} {{ '-' }}
+                                {{ $item->first_name }}{{ '(' }}{{ $item->total_expenses }}{{ ' IQD )' }}.
+                                <br>
+
+                            @empty
+                                {{ 'there is no employee with expenses' }}
+                            @endforelse
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
 
 
     <div class="card m-3">
@@ -69,12 +300,12 @@
         }
         getParameter = (key) => {
 
-address = window.location.search
+            address = window.location.search
 
-parameterList = new URLSearchParams(address)
+            parameterList = new URLSearchParams(address)
 
-return parameterList.get(key)
-}
+            return parameterList.get(key)
+        }
         var table = $('#MyTable').DataTable({
             processing: true,
             serverSide: true,
@@ -129,19 +360,17 @@ return parameterList.get(key)
     });
 </script>
 
-@section('script') 
+@section('script')
     <!-- Required datatable js -->
-   <script src="{{ URL::asset('/assets/libs/datatables/datatables.min.js') }}"></script>
+    <script src="{{ URL::asset('/assets/libs/datatables/datatables.min.js') }}"></script>
     <script src="{{ URL::asset('assets/libs/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
 
 
-<script type="text/javascript">
-
-    $(document).ready(function() {
-        function dataChanged() {
-            table.draw();
-        }
-    });
-
+    <script type="text/javascript">
+        $(document).ready(function() {
+            function dataChanged() {
+                table.draw();
+            }
+        });
     </script>
 @endsection

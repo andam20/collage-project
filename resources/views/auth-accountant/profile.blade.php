@@ -58,9 +58,10 @@
                         <div class="card-body p-4">
                             <div class="d-flex text-black">
                                 <div class="flex-shrink-0">
-                                    <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
-                                        alt="Generic placeholder image" class="img-fluid"
-                                        style="width: 180px; border-radius: 10px;">
+
+                                  
+                                    {{-- <img src="{{ $imageUrl }}" alt="Generic placeholder image" class="img-fluid"
+                                        style="width: 180px; border-radius: 10px;"> --}}
                                 </div>
                                 <div class="flex-grow-1 ms-3">
                                     <h5 class="mb-1"></h5>
@@ -81,9 +82,11 @@
                                         </div>
                                         <div class="px-3">
                                             <p class="small text-muted mb-1">password</p>
-                                            <p class="mb-0">  @foreach ($accountant as $item)
-                                                {{ $item->password }}
-                                            @endforeach</p>
+                                            <p class="mb-0">
+                                                @foreach ($accountant as $item)
+                                                    {{ $item->password }}
+                                                @endforeach
+                                            </p>
                                         </div>
                                     </div>
                                 </div>

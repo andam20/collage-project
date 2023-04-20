@@ -39,6 +39,20 @@
                                 </div>
 
                                 <div class="row mb-4">
+                                    <label for="image" class="col-sm-3 col-form-label">image</label>
+                                    <div class="col-sm-9">
+                                        <input class="form-control" type="file" id="image" name="image"
+                                            value="{{ old('image') }}">
+                                        <div class="valid-feedback">
+                                            @lang('validation.good')
+                                        </div>
+                                        <div class="invalid-feedback">
+                                            @lang('validation.required', ['attribute' => __('translation.image')])
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row mb-4">
                                     <label for="email" class="col-sm-3 col-form-label">email</label>
                                     <div class="col-sm-9">
                                         <input type="text" class="form-control" id="email" name="email"

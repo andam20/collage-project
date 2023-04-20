@@ -33,8 +33,8 @@
                         <div class="col-md-4 gradient-custom text-center text-white"
                             style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
 
-                            {{-- <img src="{{ $imageUrl }}" alt="{{ URL::asset('/assets/images/place_holder.jpg') }}"
-                                class="img-fluid my-5 rounded float-end" /> --}}
+                            <img src="{{ $imageUrl }}" alt="{{ URL::asset('/assets/images/place_holder.jpg') }}"
+                                class="img-fluid my-5 rounded float-end" />
                         </div>
                         <div class="col-md-8">
                             <div class="card-body p-4">
@@ -44,55 +44,42 @@
                                     <div class="col-6">
                                         <h6>category</h6>
                                         <p class="text-muted">
-                                            @foreach ($expenses as $item)
-                                                {{ $item->category }}
-                                            @endforeach
+                                            {{-- @forelse ($expenses as $item) --}}
+                                                {{ $expenses->category }}
+                                             
                                         </p>
                                     </div>
                                     <div class="col-6">
                                         <h6>amount</h6>
                                         <p class="text-muted">
-                                            @foreach ($expenses as $item)
-                                                {{ $item->amount }}
-                                            @endforeach
+                                            {{ $expenses->amount }}
                                         </p>
                                     </div>
                                     <div class="col-6">
                                         <h6>description</h6>
                                         <p class="text-muted">
-                                            @foreach ($expenses as $item)
-                                                {{ $item->description }}
-                                            @endforeach
+                                            {{ $expenses->description }}
                                         </p>
                                     </div>
 
                                     <div class="col-6">
                                         <h6>status</h6>
                                         <p class="text-muted">
-                                            @foreach ($expenses as $item)
-                                                {{ $item->status }}
-                                            @endforeach
+                                            {{ $expenses->status }}
                                         </p>
                                     </div>
 
                                     <div class="col-6">
                                         <h6>paid back</h6>
                                         <p class="text-muted">
-                                            @foreach ($expenses as $item)
-                                                {{ $item->paid_back }}
-                                            @endforeach
+                                            {{ $expenses->paid_back }}
                                         </p>
                                     </div>
 
                                     <div class="col-6">
                                         <h6>Money Retuned</h6>
                                         <p class="text-muted">
-                                            @foreach ($expenses as $item)
-                                                @empty($item->money_returned)
-                                                    {{ 'there is no money retuned' }}
-                                                @endempty
-                                                {{ $item->money_returned }}
-                                            @endforeach
+                                            {{ $expenses->money_returned }}
                                         </p>
                                     </div>
 
@@ -100,30 +87,14 @@
                                     <div class="col-6">
                                         <h6>Income</h6>
                                         <p class="text-muted">
-                                            @foreach ($expenses as $item)
-                                                @empty($item->income)
-                                                    {{ 'there is no income' }}
-                                                @endempty
-                                                {{ $item->income }}
-                                            @endforeach
-                                        </p>
-                                    </div>
-
-                                    <div class="col-6">
-                                        <h6>paid back</h6>
-                                        <p class="text-muted">
-                                            @foreach ($expenses as $item)
-                                                {{ $item->paid_back }}
-                                            @endforeach
+                                            {{ $expenses->income }}
                                         </p>
                                     </div>
 
                                     <div class="col-6">
                                         <h6>Date</h6>
                                         <p class="text-muted">
-                                            @foreach ($expenses as $item)
-                                                {{ $item->date }}
-                                            @endforeach
+                                            {{ $expenses->date }}
                                         </p>
                                     </div>
 

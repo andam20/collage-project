@@ -69,7 +69,11 @@ class AccountantController extends Controller
     public function store(AccountantRequest $request)
     {
         $validated = $request->validated();
-        Accountant::create($validated);
+      $acc=  Accountant::create($validated);
+        if ($request->hasFile('image')) {
+            $acc->addMediaFromRequest('image')
+                ->toMediaCollection('images');
+        }
         return redirect()->route('accountant.index');
     }
 
@@ -84,14 +88,15 @@ class AccountantController extends Controller
     public function show(Request $request, $id)
     {
 
-        $accountants = Accountant::get()->where('id', $id);
-        // $imageUrl = asset($expenses->getFirstMedia('images')->getUrl());
+        $accountants = Accountant::with('media')->findOrFail($id);
+        // dd($accountants);
+        $imageUrl = asset($accountants->getFirstMedia('images')->getUrl());
 
         $now = Carbon::now();
         $otherDateObject = DB::table('accountants')->where('id', $id)->value('created_at');
         $otherDateAsString = Carbon::parse($otherDateObject)->format('Y-m-d');
         $daysDifference = $now->diffForHumans($otherDateAsString);
-        return view('accountant.show', compact('accountants',  'daysDifference', 'id'));
+        return view('accountant.show', compact('accountants',  'daysDifference', 'id','imageUrl'));
     }
 
 
@@ -125,8 +130,14 @@ class AccountantController extends Controller
     {
 
         $validated = $request->validated();
+        unset($validated['image']);
         $accountant->update($validated);
-
+        if ($request->has('image')) {
+            $accountant->media()->delete();
+            // addMediaFromRequest expects the name of the file in the view
+            $accountant->addMediaFromRequest('image')
+                ->toMediaCollection('image');
+        }
         return redirect()->route('accountant.index');
     }
 

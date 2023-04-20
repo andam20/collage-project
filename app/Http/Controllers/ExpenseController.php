@@ -20,6 +20,25 @@ class ExpenseController extends Controller
     public function index(Request $request)
     {
 
+        $amount = Expense::get()->sum('amount');
+        $amountCount = Expense::get()->count('amount');
+        $income = Expense::get()->sum('income');
+        $incomeCount = Expense::get()->count('income');
+        $incomeCount = Expense::get()->count('income');
+        $reject = Expense::get()->where('status', 'Rejected')->count('status');
+        $accept = Expense::get()->where('status', 'Accepted')->count('status');
+        $pending = Expense::get()->where('status', 'Pending')->count('status');
+        $not_paid_back = Expense::get()->where('status', 'Not Paid Back')->count('paid_back');
+        $paid_back = Expense::get()->where('paid_back', 'Paid Back')->count('paid_back');
+
+        $topCompanyProfiles = DB::table('company_profiles')
+            ->select('company_profiles.first_name', DB::raw('SUM(expenses.amount) as total_expenses'))
+            ->join('expenses', 'company_profiles.id', '=', 'expenses.company_profile_id')
+            ->groupBy('company_profiles.id', 'company_profiles.first_name')
+            ->orderByDesc('total_expenses')
+            ->limit(3)
+            ->get();
+
         if ($request->ajax()) {
             $data = Expense::with('company_profile')->get();
 
@@ -54,19 +73,38 @@ class ExpenseController extends Controller
                 })
                 ->make(true);
         }
-        return view('expense.index');
+        return view(
+            'expense.index',
+            compact(
+                'amount',
+                'amountCount',
+                'income',
+                'incomeCount',
+                'reject',
+                'accept',
+                'pending',
+                'not_paid_back',
+                'paid_back',
+                'topCompanyProfiles'
+            )
+        );
     }
 
     public function create()
     {
-        return view('expense.create', ['expense' => Expense::all(),"data" => CompanyProfile::get()]);
+        return view('expense.create', ['expense' => Expense::all(), "data" => CompanyProfile::get()]);
     }
 
 
     public function store(ExpenseRequest $request)
     {
         $validated = $request->validated();
-        Expense::create($validated);
+        $expense = Expense::create($validated);
+
+        if ($request->hasFile('image')) {
+            $expense->addMediaFromRequest('image')
+                ->toMediaCollection('images');
+        }
         return redirect()->route('expense.index');
     }
 
@@ -81,15 +119,14 @@ class ExpenseController extends Controller
     public function show(Request $request, $id)
     {
 
-        $expenses = Expense::get()->where('id', $id);
-        // $imageUrl = asset($expenses->getFirstMedia('images')->getUrl());
-
+        $expenses = Expense::with('media')->findOrFail($id);
+        $imageUrl = asset($expenses->getFirstMediaUrl('images'));
 
         $now = Carbon::now();
         $otherDateObject = DB::table('expenses')->where('id', $id)->value('created_at');
         $otherDateAsString = Carbon::parse($otherDateObject)->format('Y-m-d');
         $daysDifference = $now->diffForHumans($otherDateAsString);
-        return view('expense.show', compact('expenses',  'daysDifference', 'id'));
+        return view('expense.show', compact('expenses', 'daysDifference', 'id', 'imageUrl'));
     }
 
 
@@ -115,15 +152,24 @@ class ExpenseController extends Controller
     public function edit(Expense $expense)
     {
 
-        $company =CompanyProfile::all();
-        return view('expense.edit', compact('expense','company'));
+        $company = CompanyProfile::all();
+        return view('expense.edit', compact('expense', 'company'));
     }
 
     public function update(ExpenseRequest $request, Expense $expense)
     {
 
         $validated = $request->validated();
+        unset($validated['image']);
         $expense->update($validated);
+
+        if ($request->has('image')) {
+            $expense->media()->delete();
+            // addMediaFromRequest expects the name of the file in the view
+            $expense->addMediaFromRequest('image')
+                ->toMediaCollection('image');
+        }
+
 
         return redirect()->route('expense.index');
     }

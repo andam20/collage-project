@@ -18,7 +18,7 @@ return new class extends Migration
             $table->double('income')->nullable();
             $table->double('money_returned')->nullable();
             $table->date('date');
-            $table->string('description');
+            $table->text('description');
             $table->enum("status",["Accepted","Rejected","Pending"]);
             $table->enum('paid_back',["Paid Back","Not Paid Back"]);
             $table->foreignId('company_profile_id')->constrained("company_profiles")->onUpdate("cascade")->onDelete("cascade");

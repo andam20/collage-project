@@ -33,8 +33,8 @@
                         <div class="col-md-4 gradient-custom text-center text-white"
                             style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
 
-                            {{-- <img src="{{ $imageUrl }}" alt="{{ URL::asset('/assets/images/place_holder.jpg') }}"
-                                class="img-fluid my-5 rounded float-end" /> --}}
+                            <img src="{{ $imageUrl }}" alt="{{ URL::asset('/assets/images/place_holder.jpg') }}"
+                                class="img-fluid my-5 rounded float-end" />
                         </div>
                         <div class="col-md-8">
                             <div class="card-body p-4">
@@ -44,25 +44,21 @@
                                     <div class="col-6">
                                         <h6>name</h6>
                                         <p class="text-muted">
-                                            @foreach ($accountants as $item)
-                                                {{ $item->name }}
-                                            @endforeach
+                                                {{ $accountants->name }}
+                                        
                                         </p>
                                     </div>
                                     <div class="col-6">
                                         <h6>email</h6>
                                         <p class="text-muted">
-                                            @foreach ($accountants as $item)
-                                                {{ $item->email }}
-                                            @endforeach
+                                            {{ $accountants->email }}
                                         </p>
                                     </div>
                                     <div class="col-6">
                                         <h6>password</h6>
                                         <p class="text-muted">
-                                            @foreach ($accountants as $item)
-                                                {{ $item->password }}
-                                            @endforeach
+                                            {{ $accountants->password }}
+
                                         </p>
                                     </div> 
                                     <div class="col-6">

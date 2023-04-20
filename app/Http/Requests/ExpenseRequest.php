@@ -31,6 +31,7 @@ class ExpenseRequest extends FormRequest
             "status" => ["required"],
             "paid_back" => ["required"],
             "company_profile_id" => ["required", "exists:company_profiles,id"],
+            "image.*" => ['sometimes', 'mimes:jpg,png,jpeg,gif,svg'],
         ];
     }
 }

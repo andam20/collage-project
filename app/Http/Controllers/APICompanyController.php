@@ -38,50 +38,61 @@ class APICompanyController extends Controller
         return response(['message' => 'You have been successfully logged out']);
     }
 
-    public function total()
-    {
-        $employee_profile = auth()->user();
-        $total = $employee_profile->expense()->select('amount')->sum('amount');
-        // $employee_profile->expense->get();
-        return response()->json([
-            'expense' => $total
-        ]);
-    }
 
     public function income()
     {
         $employee_profile = auth()->user();
-        $expenses = $employee_profile->expense()->select('income')->sum('income');
-        $money_returned = $employee_profile->expense()->select('money_returned')->sum('money_returned');
-        $total = $expenses + $money_returned;
-        // $employee_profile->expense->get();
+        $income = $employee_profile->expense()->select('income')->sum('income');
         return response()->json([
-            'expense' => $total
+            'income' => $income
+        ]);
+    }
+
+    public function expenseTotal()
+    {
+        $employee_profile = auth()->user();
+        $expense = $employee_profile->expense()->select('amount')->sum('amount');
+        return response()->json([
+            'expense' => $expense
         ]);
     }
 
     public function last_four()
     {
-        $employee_profile = auth()->user();
-        return response()->json([
-            'expense' => $employee_profile->expense->take(4)
-        ]);
+        $user = auth()->user();
+        $expenses = Expense::where('company_profile_id', $user->id)
+            ->with('company_profile')
+            ->latest()
+            ->take(4)
+            ->get()
+            ->toArray();
+        return $expenses;
     }
+
+
 
     public function expense()
     {
         $employee_profile = auth()->user();
-        return response()->json([
-            'expense' => $employee_profile->expense
-        ]);
+        return $employee_profile->expense;
     }
+
 
     public function employeeProfile()
     {
         $employee_profile = auth()->user();
-        return response()->json([
-            'employee_profile' => $employee_profile
-        ]);
+        if ($employee_profile) {
+            $image_url = $employee_profile->getFirstMediaUrl('images');
+            $newOne = str_replace('http://localhost:8000', '', $image_url);
+
+            $employee_profile->image_url = $newOne;
+            $expenseData = $employee_profile->toArray();
+
+            return response()->json([
+                'employee_profile' => $expenseData,
+                // 'data' => $newOne
+            ]);
+        }
     }
 
     public function login(Request $request)
@@ -123,6 +134,11 @@ class APICompanyController extends Controller
         ]);
         $expense = Expense::findOrFail($id);
 
+
+        if ($request->hasFile('image')) {
+            $expense->addMediaFromRequest('image')
+                ->toMediaCollection('images');
+        }
         if ($expense) {
             $expense->category = $data['category'];
             $expense->amount = $data['amount'];
@@ -153,42 +169,47 @@ class APICompanyController extends Controller
             "amount" => ["required"],
             "date" => ["required"],
             "description" => ["required"],
-            "status" => ["required"],
-            "paid_back" => ["required"],
-            "company_profile_id" => ["required", "exists:company_profiles,id"],
         ]);
+
+        $employee_id = auth()->id();
 
         $expense = new Expense;
         $expense->category = $validatedData['category'];
         $expense->amount = $validatedData['amount'];
         $expense->date = $validatedData['date'];
         $expense->description = $validatedData['description'];
-        $expense->status = $validatedData['status'];
-        $expense->paid_back = $validatedData['paid_back'];
-        $expense->company_profile_id = $validatedData['company_profile_id'];
+        $expense->status = 'Pending';
+        $expense->paid_back = 'Not Paid Back';
+        $expense->company_profile_id = $employee_id;
         $expense->save();
-
-
 
         return response()->json([
             'message' => 'Expense created successfully',
             'data' => $expense
         ]);
+
     }
+
+
 
 
     public function companyName()
     {
         // Find the employee with the given ID for the authenticated user
         $employee_id = auth()->user()->id;
-        $employee=CompanyProfile::with('user')->findOrFail($employee_id);
+        $employee = CompanyProfile::with('user')->findOrFail($employee_id);
+
+        // Get the image URL if it exists
+        $image_url = $employee->user->getFirstMediaUrl('images');
+        $newOne = str_replace('http://localhost:8000', '', $image_url);
 
 
-        // Return the employee if found, or an error message if not found
+        // Return the employee's name and image URL if found, or an error message if not found
         if ($employee) {
             return response()->json([
                 'message' => 'Employee found',
-                'name' => $employee->user->name
+                'name' => $employee->user->name,
+                'image_url' => $newOne
             ]);
         } else {
             return response()->json([
@@ -196,7 +217,8 @@ class APICompanyController extends Controller
             ], 404);
         }
     }
-   
+
+
     public function showEmployee()
     {
         // Find the employee with the given ID for the authenticated user
@@ -217,14 +239,18 @@ class APICompanyController extends Controller
 
     public function showExpense($id)
     {
-        // Find the employee with the given ID for the authenticated user
         $expense = Expense::findOrFail($id);
 
-        // Return the employee if found, or an error message if not found
         if ($expense) {
+            $image_url = $expense->getFirstMediaUrl('images');
+            $newOne = str_replace('http://localhost:8000', '', $image_url);
+
+            $expense->image_url = $newOne;
+            $expenseData = $expense->toArray();
+
             return response()->json([
                 'message' => 'expense found',
-                'data' => $expense
+                'data' => $expenseData
             ]);
         } else {
             return response()->json([
@@ -233,59 +259,35 @@ class APICompanyController extends Controller
         }
     }
 
-
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function updateEmployee(Request $request)
     {
         // Validate the request data
         $data = $request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'salary' => 'required|numeric',
-            'gender' => 'required|string|in:male,female',
-            'start_date' => 'required|date_format:Y-m-d',
             'phone_no' => 'required|string',
             'email' => 'required|email',
-            'address' => 'required|string',
-            'password' => 'required|string'
+            'password' => 'required|string',
         ]);
 
-        // Find the employee with the given ID for the authenticated user
         $employee = auth()->user();
 
-        // Update the employee with the new data
         if ($employee) {
             $employee->first_name = $data['first_name'];
             $employee->last_name = $data['last_name'];
-            $employee->salary = $data['salary'];
-            $employee->gender = $data['gender'];
-            $employee->start_date = $data['start_date'];
             $employee->phone_no = $data['phone_no'];
             $employee->email = $data['email'];
-            $employee->address = $data['address'];
             $employee->password = $data['password'];
+
             $employee->save();
             return response()->json([
-                'message' => 'expense updated successfully',
-                'data' => $employee
+                'message' => 'employee updated successfully',
+                // 'data' => $employee
             ]);
         }
         return response()->json([
             'message' => 'Employee not updated successfully',
         ]);
-    }
-
-
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
-    {
-        return CompanyProfile::destroy($id);
     }
 
 }
