@@ -116,12 +116,12 @@
                                     </div>
 
                                     <div class="col-6">
-                                        <h6>Expenses:</h6>
+                                        <h6>Expenses with category:</h6>
                                         <p class="text-muted">
                                             @forelse ($item->expense as $expense)
                                                 <h6>
                                                     {{ $loop->iteration }}{{ '- ' }}
-                                                    {{ $expense->title }}</h6>
+                                                    {{ $expense->category }}</h6>
                                             @empty
                                                 {{ 'No Expense Yet' }}
                                             @endforelse

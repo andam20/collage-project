@@ -214,7 +214,7 @@
                                             <span class="shape-2"></span>
                                         </div>
                                         <div class="counter-content media-body">
-                                            <span class="counter-count"><span class="counter">{{$employeeCount}}</span></span>
+                                            <span class="counter-count"><span class="counter">{{$accountantCount}}</span></span>
                                             <p class="text">Number of Accountant</p>
                                         </div>
                                     </div> <!-- single counter -->

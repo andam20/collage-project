@@ -28,7 +28,7 @@ class ExpenseController extends Controller
         $reject = Expense::get()->where('status', 'Rejected')->count('status');
         $accept = Expense::get()->where('status', 'Accepted')->count('status');
         $pending = Expense::get()->where('status', 'Pending')->count('status');
-        $not_paid_back = Expense::get()->where('status', 'Not Paid Back')->count('paid_back');
+        $not_paid_back = Expense::get()->where('paid_back', 'Not Paid Back')->count('paid_back');
         $paid_back = Expense::get()->where('paid_back', 'Paid Back')->count('paid_back');
 
         $topCompanyProfiles = DB::table('company_profiles')

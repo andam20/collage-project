@@ -107,12 +107,13 @@ View::composer(['*'],function($view){
 
   View::composer(['*'],function($view){
     $employeeCount=CompanyProfile::get()->count();
+    // dd($employeeCount);
     $view->with('employeeCount',$employeeCount);
   });
 
   View::composer(['*'],function($view){
     $accountantCount=Accountant::get()->count();
-    $view->with('employeeCount',$accountantCount);
+    $view->with('accountantCount',$accountantCount);
   });
 
   View::composer(['*'],function($view){

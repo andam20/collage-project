@@ -40,7 +40,9 @@ class CompanyProfileExport implements  FromQuery, WithHeadings, ShouldAutoSize, 
     {
         return [
             $row->id,
-            $row->name,
+            $row->first_name,
+            $row->last_name,
+            $row->salary,
             $row->gender,
             $row->start_date,
             $row->phone_no,
@@ -55,7 +57,9 @@ class CompanyProfileExport implements  FromQuery, WithHeadings, ShouldAutoSize, 
         // return $this->headers;
         return [
             'id',
-            'name',
+            'first name',
+            'last name',
+            'salary',
             'gender',
             'start date',
             'phone number',

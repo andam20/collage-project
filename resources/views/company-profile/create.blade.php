@@ -7,18 +7,18 @@
 
 
     <div class="col-lg-12" align="end">
-        <a href="{{ route('work-type.create') }}">
+        {{-- <a href="{{ route('work-type.create') }}">
             <button style="margin-right: 22px;margin-top: 22px;" type="button"
                 class="btn btn-rounded btn-success waves-effect waves-light" data-bs-toggle="modal"
-                data-bs-target="#exampleModal" data-bs-whatever=""> Add Job Title</button></a>
+                data-bs-target="#exampleModal" data-bs-whatever=""> Add Job Title</button></a> --}}
     </div>
     <div class="row">
         <div class="col-lg-3"></div>
         <div class="col-xl-6">
-                @forelse ($job_titles as $item)
-            @empty
-            <h3 class="bg-red" style="color: red"> {{ 'Plese add a Job Title , you have at least a Job Title' }}  </h3>                
-            @endforelse 
+                {{-- @forelse ($job_titles as $item)
+            @empty --}}
+            <h3 class="bg-red" style="color: red"> {{ 'Plese add a Job Title' }}  </h3>                
+            {{-- @endforelse  --}}
             <div class="card m-2">
                 <div class="card-body">
                     @if ($errors->any())

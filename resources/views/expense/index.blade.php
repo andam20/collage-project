@@ -36,236 +36,106 @@
     </div>
 
 
-    <div class="row">
-        <div class="col-md-2 m-2">
-            <div class="card mini-stats-wid">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <div class="flex-grow-1 text-uppercase">
-                            amount of all expense
-                            <p class="text-muted fw-medium"></p>
-                            <h4 class="mb-0">{{ $amount }}</h4>
-                        </div>
-                        <div class="flex-shrink-0 align-self-center">
-                            {{-- <a href="{{ route('') }}"> --}}
-                            <a>
-                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
-                                    <span class="avatar-title">
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
+
+
+    <div align="center">
+
+        <div class="row">
+
+            <div class="col-1 m-2" style="padding-top: 20px" align="center">
+                <div class="flex-grow-1 text-uppercase">
+                    <p class="text-muted fw-medium"></p>
+                    <h4 class="mb-0"></h4>
+                </div>
+            </div>
+            <div class="col-3 m-2 card" style="padding-top: 20px" align="center">
+                <div class="flex-grow-1 text-uppercase">
+                    amount of all expenses
+                    <p class="text-muted fw-medium"></p>
+                    <h4 class="mb-0">{{ $amount }}</h4>
+                </div>
+            </div>
+
+            <div class="col-md-3 m-2 card" style="padding-top: 20px" align="center">
+                <div class="flex-grow-1 text-uppercase">
+                    amount of all income
+                    <p class="text-muted fw-medium"></p>
+                    <h4 class="mb-0">{{ $income }} IQD</h4>
+                </div>
+            </div>
+
+            <div class="col-md-3 m-2 card" style="padding-top: 20px" align="center">
+                <div class="flex-grow-1 text-uppercase">
+                    no. paid backs
+                    <p class="text-muted fw-medium"></p>
+                    <h4 class="mb-0">{{ $paid_back }}</h4>
+                </div>
+            </div>
+
+            <div class="w-100"></div>
+
+            <div class="col-1 m-2" style="padding-top: 20px" align="center">
+                <div class="flex-grow-1 text-uppercase">
+                    <p class="text-muted fw-medium"></p>
+                    <h4 class="mb-0"></h4>
+                </div>
+            </div>
+            <div class="col-3 m-2 card" style="padding-top: 20px" align="center">
+                <div class="flex-grow-1 text-uppercase">
+                    number of Accepted
+                    <p class="text-muted fw-medium"></p>
+                    <h4 class="mb-0">{{ $accept }}</h4>
+                </div>
+            </div>
+
+            <div class="col-md-3 m-2 card" style="padding-top: 20px" align="center">
+                <div class="flex-grow-1 text-uppercase">
+                    number of Pending
+                    <p class="text-muted fw-medium"></p>
+                    <h4 class="mb-0">{{ $pending }}</h4>
+                </div>
+            </div>
+
+            <div class="col-md-3 m-2 card" style="padding-top: 20px" align="center">
+                <div class="flex-grow-1 text-uppercase">
+                    number of rejtes
+                    <p class="text-muted fw-medium"></p>
+                    <h4 class="mb-0">{{ $reject }}</h4>
                 </div>
             </div>
         </div>
-        <div class="col-md-2 m-2">
-            <div class="card mini-stats-wid">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <div class="flex-grow-1 text-uppercase">
-                            number of expense
-                            <p class="text-muted fw-medium"></p>
-                            <h4 class="mb-0">{{ $amountCount }}</h4>
-                        </div>
-                        <div class="flex-shrink-0 align-self-center">
-                            {{-- <a href="{{ route('') }}"> --}}
-                            <a>
-                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
-                                    <span class="avatar-title">
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2 m-2">
-            <div class="card mini-stats-wid">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <div class="flex-grow-1 text-uppercase">
-                            amount of all income
-                            <p class="text-muted fw-medium"></p>
-                            <h4 class="mb-0">{{ $income }}</h4>
-                        </div>
-                        <div class="flex-shrink-0 align-self-center">
-                            {{-- <a href="{{ route('') }}"> --}}
-                            <a>
-                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
-                                    <span class="avatar-title">
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-2 m-2">
-            <div class="card mini-stats-wid">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <div class="flex-grow-1 text-uppercase">
-                            number of incomes
-                            <p class="text-muted fw-medium"></p>
-                            <h4 class="mb-0">{{ $incomeCount }}</h4>
-                        </div>
-                        <div class="flex-shrink-0 align-self-center">
-                            {{-- <a href="{{ route('') }}"> --}}
-                            <a>
-                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
-                                    <span class="avatar-title">
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-2 m-2">
-            <div class="card mini-stats-wid">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <div class="flex-grow-1 text-uppercase">
-                            number of rejtes
-                            <p class="text-muted fw-medium"></p>
-                            <h4 class="mb-0">{{ $reject }}</h4>
-                        </div>
-                        <div class="flex-shrink-0 align-self-center">
-                            {{-- <a href="{{ route('') }}"> --}}
-                            <a>
-                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
-                                    <span class="avatar-title">
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-2 m-2">
-            <div class="card mini-stats-wid">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <div class="flex-grow-1 text-uppercase">
-                            number of Accepted
-                            <p class="text-muted fw-medium"></p>
-                            <h4 class="mb-0">{{ $accept }}</h4>
-                        </div>
-                        <div class="flex-shrink-0 align-self-center">
-                            {{-- <a href="{{ route('') }}"> --}}
-                            <a>
-                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
-                                    <span class="avatar-title">
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-2 m-2">
-            <div class="card mini-stats-wid">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <div class="flex-grow-1 text-uppercase">
-                            number of Pending
-                            <p class="text-muted fw-medium"></p>
-                            <h4 class="mb-0">{{ $pending }}</h4>
-                        </div>
-                        <div class="flex-shrink-0 align-self-center">
-                            {{-- <a href="{{ route('') }}"> --}}
-                            <a>
-                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
-                                    <span class="avatar-title">
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-2 m-2">
-            <div class="card mini-stats-wid">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <div class="flex-grow-1 text-uppercase">
-                            no. not paid backs
-                            <p class="text-muted fw-medium"></p>
-                            <h4 class="mb-0">{{ $not_paid_back }}</h4>
-                        </div>
-                        <div class="flex-shrink-0 align-self-center">
-                            <a>
-                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
-                                    <span class="avatar-title">
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-2 m-2">
-            <div class="card mini-stats-wid">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <div class="flex-grow-1 text-uppercase">
-                            no. paid backs
-                            <p class="text-muted fw-medium"></p>
-                            <h4 class="mb-0">{{ $paid_back }}</h4>
-                        </div>
-                        <div class="flex-shrink-0 align-self-center">
-                            {{-- <a href="{{ route('') }}"> --}}
-                            <a>
-                                <div class="mini-stat-icon avatar-sm rounded-circle bg-primary">
-                                    <span class="avatar-title">
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-md-3 m-2">
-            <div class="card mini-stats-wid">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <div class="flex-grow-1 text-uppercase">
-                            <p class="text-muted fw-medium text-uppercase"> top 3 employees with expense
-                            </p>
-                            @forelse ($topCompanyProfiles as $item)
-                                {{ $loop->iteration }} {{ '-' }}
-                                {{ $item->first_name }}{{ '(' }}{{ $item->total_expenses }}{{ ' IQD )' }}.
-                                <br>
-
-                            @empty
-                                {{ 'there is no employee with expenses' }}
-                            @endforelse
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
     </div>
 
+
+
+
+    <div align="center">
+        <div class="row">
+            @forelse ($topCompanyProfiles as $item)
+                <div class="col-md-4">
+                    <div class="card mini-stats-wid" style="background-color: #aaa">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div class="flex-grow-1 text-uppercase">
+                                    <p class="text-muted fw-medium text-uppercase"> top {{ $loop->iteration }}
+                                        employees with expense
+                                    </p>
+
+                                    {{ $loop->iteration }} {{ '-' }}
+                                    {{ $item->first_name }}{{ '(' }}{{ $item->total_expenses }}{{ ' IQD )' }}.
+                                    <br>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                {{-- {{ 'there is no employee with expenses' }} --}}
+            @endforelse
+        </div>
+    </div>
 
 
     <div class="card m-3">
