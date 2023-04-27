@@ -265,12 +265,13 @@ class APICompanyController extends Controller
         $data = $request->validate([
             'first_name' => 'required|string',
             'last_name' => 'required|string',
-            'phone_no' => 'required|string',
+            'phone_no' => 'required',
             'email' => 'required|email',
             'password' => 'required|string',
         ]);
 
         $employee = auth()->user();
+
 
         if ($employee) {
             $employee->first_name = $data['first_name'];
@@ -278,6 +279,7 @@ class APICompanyController extends Controller
             $employee->phone_no = $data['phone_no'];
             $employee->email = $data['email'];
             $employee->password = $data['password'];
+            
 
             $employee->save();
             return response()->json([

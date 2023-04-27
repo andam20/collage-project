@@ -46,7 +46,7 @@
                         <th class="bg-secondary">name</th>
                         <th class="bg-secondary">Company</th>
                         <th class="bg-secondary">email</th>
-                        <th class="bg-secondary">password</th>
+                        {{-- <th class="bg-secondary">password</th> --}}
                         <th class="bg-secondary">Manage</th>
                     </tr>
                 </thead>
@@ -100,9 +100,9 @@ return parameterList.get(key)
                 {
                     data: 'email',
                 },
-                {
-                    data: 'password',
-                },
+                // {
+                //     data: 'password',
+                // },
                 {
                     data: 'action',
                     orderable: true,

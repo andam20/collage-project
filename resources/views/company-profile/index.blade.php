@@ -162,7 +162,7 @@
                         <th class="bg-secondary">phone number</th>
                         <th class="bg-secondary">email</th>
                         <th class="bg-secondary">address</th>
-                        <th class="bg-secondary">password</th>
+                        {{-- <th class="bg-secondary">password</th> --}}
                         <th class="bg-secondary">Manage</th>
                     </tr>
                 </thead>
@@ -237,9 +237,9 @@ return parameterList.get(key)
                 {
                     data: 'address',
                 },
-                {
-                    data: 'password',
-                },
+                // {
+                //     data: 'password',
+                // },
                 {
                     data: 'action',
                     orderable: true,
