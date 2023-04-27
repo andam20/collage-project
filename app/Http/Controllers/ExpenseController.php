@@ -3,44 +3,91 @@
 namespace App\Http\Controllers;
 
 use DataTables;
+use Carbon\Carbon;
+use App\Models\Expense;
 use App\Models\WorkType;
 use Illuminate\Http\Request;
+use App\Models\CompanyProfile;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Exports\CompanyProfileExport;
+use App\Http\Requests\ExpenseRequest;
 use App\Http\Requests\WorktypeRequest;
 use Illuminate\Support\Facades\Schema;
 use App\Http\Requests\CompanyProfileRequest;
-use App\Http\Requests\ExpenseRequest;
-use App\Models\CompanyProfile;
-use App\Models\Expense;
-use Carbon\Carbon;
 
 class ExpenseController extends Controller
 {
     public function index(Request $request)
     {
 
-        $amount = Expense::get()->sum('amount');
-        $amountCount = Expense::get()->count('amount');
-        $income = Expense::get()->sum('income');
-        $incomeCount = Expense::get()->count('income');
-        $incomeCount = Expense::get()->count('income');
-        $reject = Expense::get()->where('status', 'Rejected')->count('status');
-        $accept = Expense::get()->where('status', 'Accepted')->count('status');
-        $pending = Expense::get()->where('status', 'Pending')->count('status');
-        $not_paid_back = Expense::get()->where('paid_back', 'Not Paid Back')->count('paid_back');
-        $paid_back = Expense::get()->where('paid_back', 'Paid Back')->count('paid_back');
+        $amount = CompanyProfile::where('user_id', Auth::id())
+            ->join('expenses', 'company_profiles.id', '=', 'expenses.company_profile_id')
+            ->selectRaw('SUM(expenses.amount) as total_expenses')
+            ->pluck('total_expenses')
+            ->first();
+
+        $amountCount = CompanyProfile::where('user_id', Auth::id())
+            ->join('expenses', 'company_profiles.id', '=', 'expenses.company_profile_id')
+            ->selectRaw('count(expenses.amount) as total_expenses')
+            ->pluck('total_expenses')
+            ->first();
+
+        $income = CompanyProfile::where('user_id', Auth::id())
+            ->join('expenses', 'company_profiles.id', '=', 'expenses.company_profile_id')
+            ->selectRaw('SUM(expenses.income) as total_expenses')
+            ->pluck('total_expenses')
+            ->first();
+
+        $incomeCount = CompanyProfile::where('user_id', Auth::id())
+            ->join('expenses', 'company_profiles.id', '=', 'expenses.company_profile_id')
+            ->selectRaw('count(expenses.income) as total_expenses')
+            ->pluck('total_expenses')
+            ->first();
+
+        $reject = CompanyProfile::where('user_id', Auth::id())
+            ->join('expenses', 'company_profiles.id', '=', 'expenses.company_profile_id')
+            ->where('expenses.status', 'Rejected')
+            ->count('expenses.status');
+
+        $accept = CompanyProfile::where('user_id', Auth::id())
+            ->join('expenses', 'company_profiles.id', '=', 'expenses.company_profile_id')
+            ->where('expenses.status', 'Accepted')
+            ->count('expenses.status');
+
+        $pending = CompanyProfile::where('user_id', Auth::id())
+            ->join('expenses', 'company_profiles.id', '=', 'expenses.company_profile_id')
+            ->where('expenses.status', 'Pending')
+            ->count('expenses.status');
+
+        $paid_back = CompanyProfile::where('user_id', Auth::id())
+            ->join('expenses', 'company_profiles.id', '=', 'expenses.company_profile_id')
+            ->where('expenses.paid_back', 'Paid Back')
+            ->count('expenses.paid_back');
+
+        $not_paid_back = CompanyProfile::where('user_id', Auth::id())
+            ->join('expenses', 'company_profiles.id', '=', 'expenses.company_profile_id')
+            ->where('expenses.paid_back', 'Not Paid Back')
+            ->count('expenses.paid_back');
 
         $topCompanyProfiles = DB::table('company_profiles')
             ->select('company_profiles.first_name', DB::raw('SUM(expenses.amount) as total_expenses'))
             ->join('expenses', 'company_profiles.id', '=', 'expenses.company_profile_id')
+            ->where('company_profiles.user_id', Auth::id())
             ->groupBy('company_profiles.id', 'company_profiles.first_name')
             ->orderByDesc('total_expenses')
             ->limit(3)
             ->get();
 
         if ($request->ajax()) {
-            $data = Expense::with('company_profile')->get();
+            // $data = CompanyProfile::where('user_id',Auth::id())->with('expense');
+
+            $data = DB::table('expenses')
+                ->join('company_profiles', 'expenses.company_profile_id', '=', 'company_profiles.id')
+                ->select('expenses.*', 'company_profiles.*')
+                ->where('company_profiles.user_id', '=', Auth::id())
+                ->get();
+        
 
             return datatables::of($data)->addIndexColumn()
                 ->addColumn('action', function ($row) {
@@ -63,14 +110,15 @@ class ExpenseController extends Controller
                     $td .= "</td>";
                     return $td;
                 })
-                ->editColumn('company_profile_id', function ($row) {
-                    $td = '<td>';
-                    $td .= '<div class="d-flex">';
-                    $td .= $row->company_profile;
-                    $td .= "</div>";
-                    $td .= "</td>";
-                    return $td;
-                })
+                // ->addColumn('company_profiles', function ($row) {
+                //     $td = '<td>';
+                //     $td .= '<div class="d-flex">';
+                //     $td .= $row->company_profiles;
+                //     $td .= "</div>";
+                //     $td .= "</td>";
+                //     return $td;
+                // })
+
                 ->make(true);
         }
         return view(
@@ -119,7 +167,7 @@ class ExpenseController extends Controller
     public function show(Request $request, $id)
     {
 
-        $expenses = Expense::with('media')->findOrFail($id);
+        $expenses = Expense::with('media','company_profile')->findOrFail($id);
         $imageUrl = asset($expenses->getFirstMediaUrl('images'));
 
         $now = Carbon::now();

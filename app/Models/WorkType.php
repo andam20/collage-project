@@ -20,4 +20,8 @@ class WorkType extends Model
     //     return $this->belongsTo(Founder::class);
     // }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

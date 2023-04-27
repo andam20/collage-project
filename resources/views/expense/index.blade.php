@@ -52,7 +52,11 @@
                 <div class="flex-grow-1 text-uppercase">
                     amount of all expenses
                     <p class="text-muted fw-medium"></p>
-                    <h4 class="mb-0">{{ $amount }}</h4>
+                    @empty($amount)
+                        {{ "0"}}
+                    @else
+                        <h4 class="mb-0">{{ $amount }}</h4>
+                    @endempty
                 </div>
             </div>
 
@@ -60,7 +64,11 @@
                 <div class="flex-grow-1 text-uppercase">
                     amount of all income
                     <p class="text-muted fw-medium"></p>
-                    <h4 class="mb-0">{{ $income }} IQD</h4>
+                    @empty($income)
+                        {{ "0"}} IQD
+                    @else
+                        <h4 class="mb-0">{{ $income }} IQD</h4>
+                    @endempty
                 </div>
             </div>
 
@@ -146,11 +154,9 @@
                         <th class="bg-secondary">id</th>
                         <th class="bg-secondary">category</th>
                         <th class="bg-secondary">date</th>
-
-                        <th class="bg-secondary">employee</th>
+                        {{-- <th class="bg-secondary">employee</th> --}}
                         <th class="bg-secondary">amount</th>
                         <th class="bg-secondary">description</th>
-
                         <th class="bg-secondary">status</th>
                         <th class="bg-secondary">paid back</th>
                         <th class="bg-secondary">Manage</th>
@@ -203,9 +209,9 @@
                 {
                     data: 'date',
                 },
-                {
-                    data: 'company_profile.first_name',
-                },
+                // {
+                //     data: 'company_profiles',
+                // },
                 {
                     data: 'amount',
                 },

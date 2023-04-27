@@ -50,6 +50,12 @@
                                         </p>
                                     </div>
                                     <div class="col-6">
+                                        <h6>Name of Employee</h6>
+                                        <p class="text-muted">
+                                            {{ $expenses->company_profile->first_name }}
+                                        </p>
+                                    </div>
+                                    <div class="col-6">
                                         <h6>amount</h6>
                                         <p class="text-muted">
                                             {{ $expenses->amount }}

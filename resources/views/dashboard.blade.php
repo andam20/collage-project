@@ -19,7 +19,7 @@
         </div>
 
         <div align="center">
-            <a href="/">
+            <a href="">
 
                 @empty($logo)
                     <img src="{{ asset('/assets/images/logo-light.png') }}" alt="" height="19">

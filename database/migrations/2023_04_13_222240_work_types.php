@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('work_types', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->foreignId('user_id')->constrained("users")->onUpdate("cascade")->onDelete("cascade");
             // $table->foreignId('company_profiles_id')->constrained("company_profiles")->onUpdate("cascade")->onDelete("cascade");
             // $table->foreignId('company_profile_id');
             // $table->foreignId('company_profile_id')->constrained("company_profiles")->onUpdate("cascade")->onDelete("cascade");

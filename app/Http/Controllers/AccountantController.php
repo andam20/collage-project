@@ -23,7 +23,7 @@ class AccountantController extends Controller
     {
 
         if ($request->ajax()) {
-            $data = Accountant::with('user')->get();
+            $data = Accountant::where('user_id', Auth::id())->with('user')->get();
 
             return datatables::of($data)->addIndexColumn()
                 ->addColumn('action', function ($row) {

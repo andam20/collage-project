@@ -21,10 +21,10 @@ class CompanyProfileController extends Controller
     public function index(Request $request)
     {
 
-        $gender = CompanyProfile::select('gender')->get()->unique('gender');
-        $count = CompanyProfile::count();
-        $countMale = CompanyProfile::where('gender', 'male')->count();
-        $countFemale = CompanyProfile::where('gender', 'female')->count();
+        $gender = CompanyProfile::select('gender')->where('user_id', Auth::id())->get()->unique('gender');
+        $count = CompanyProfile::where('user_id', Auth::id())->count();
+        $countMale = CompanyProfile::where([['gender', 'male'],['user_id', Auth::id()]])->count();
+        $countFemale = CompanyProfile::where([['gender', 'female'],['user_id', Auth::id()]])->count();
         if ($request->ajax()) {
             $data = CompanyProfile::where('user_id', Auth::id())->get();
 

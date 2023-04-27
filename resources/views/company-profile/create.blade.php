@@ -15,10 +15,10 @@
     <div class="row">
         <div class="col-lg-3"></div>
         <div class="col-xl-6">
-                {{-- @forelse ($job_titles as $item)
-            @empty --}}
-            <h3 class="bg-red" style="color: red"> {{ 'Plese add a Job Title' }}  </h3>                
-            {{-- @endforelse  --}}
+            @forelse ($job_titles as $item)
+            @empty
+                <h3 class="bg-red" style="color: red"> {{ 'Plese add a Job Title' }} </h3>
+            @endforelse
             <div class="card m-2">
                 <div class="card-body">
                     @if ($errors->any())
@@ -86,13 +86,6 @@
                                     <div class="col-sm-9">
                                         <input type="text" hide class="form-control" id="user" name="user"
                                             value="{{ $users->id }}" required>
-                                        {{-- <select class="form-control select2" id="user" name="user" required>
-                                            @foreach ($users as $user)
-                                                <option value="{{ $user->id }}"
-                                                    {{ $user->id == old('user', []) ? 'selected' : '' }}>
-                                                    {{ $user->name }}</option>
-                                            @endforeach
-                                        </select> --}}
                                     </div>
                                 </div>
 

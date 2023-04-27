@@ -50,6 +50,10 @@ class User extends Authenticatable  implements HasMedia,MustVerifyEmail
     {
         return $this->hasMany(CompanyProfile::class);
     }
+    public function work_type()
+    {
+        return $this->hasMany(WorkType::class);
+    }
     public function accountant()
     {
         return $this->hasMany(Accountant::class);

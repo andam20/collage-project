@@ -63,6 +63,13 @@
                                             <input type="text" class="form-control" id="name" name="name">
                                         </div>
                                     </div>
+                                    <div class="row mb-4" style="display: none;">
+                                        <label for="user" class="col-sm-3 col-form-label">Company</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" hide class="form-control" id="user" name="user"
+                                                value="{{ $users->id }}" required>
+                                        </div>
+                                    </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary"
                                             data-bs-dismiss="modal">close</button>
