@@ -64,3 +64,15 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+## required things
+first of all you have to install (composer , laravel, php and also a server like xampp ) in your computer . 
+and then you have to clone the repo in the link that i sent to you , and then you have to run this commands , 
+1-composer install
+2-php artisan migrate:fresh
+3-npm install
+4-npm run dev
+5- npm run build 
+6-php artisan serve 
+and you don't want any required email and password by register the company you can start run the project.
