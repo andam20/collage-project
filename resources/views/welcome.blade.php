@@ -76,7 +76,6 @@
                                         style="color: orangered;">Expense</b></p>
                             </a>
                             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
                             </div>
 
                             <div class="navbar-btn d-none d-sm-inline-block">
@@ -85,12 +84,16 @@
                                         <a href="{{ url('/dashboard') }}"
                                             class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
                                     @else
-                                        <a class="main-btn" href="{{ route('login') }}">Login</a>
+                                        <a class="main-btn" href="{{ route('login') }}">Login As Admin</a>
                                     @endauth
                                 @endif
                             </div>
                             <div class="m-2">
                                 <a class="main-btn" href="{{ route('acc') }}">Login As Accountant</a>
+                            </div>
+
+                            <div class="m-2">
+                                <a class="main-btn" href="http://127.0.0.1:5173/login">Login As Employee</a>
                             </div>
                             {{-- <div class="navbar-btn m-3 d-none d-sm-inline-block">
                                 <a class="main-btn" href="{{ route('login-company') }}">Company</a>

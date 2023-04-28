@@ -183,6 +183,10 @@ class APICompanyController extends Controller
         $expense->company_profile_id = $employee_id;
         $expense->save();
 
+        if ($request->hasFile('image')) {
+            $expense->addMediaFromRequest('image')
+                ->toMediaCollection('images');
+        }
         return response()->json([
             'message' => 'Expense created successfully',
             'data' => $expense
